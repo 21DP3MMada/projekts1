@@ -106,4 +106,5 @@ class HomeController extends Controller
             return redirect()->back()->withErrors(['error' => 'nav labi']);
         }
     }
+
 }

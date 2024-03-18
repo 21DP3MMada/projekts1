@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>View File</title>
-
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
 
 * {
@@ -167,12 +167,34 @@ body {
   border-radius: 20px;
   margin-top: 10px;
 }
+
+.back-btn-div {
+          display: flex;
+          margin-left: 20px;
+          margin-top: 20px;
+        }
+    
+        #back-btn {
+          position: absolute;
+          height: 40px;
+          width: 40px;
+          background: white;
+          text-align: center;
+          color: black;
+          line-height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 1.25rem;
+        }
   </style>
 </head>
 
 <body>
+  <div class="back-btn-div">
+    <span id="back-btn" onclick="window.location.href='{{'/uploadpage'}}'" class='bx bxs-left-arrow-alt'></span>
+  </div>
   <div class="container">
-      <iframe class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
+      <iframe style="border-radius:20px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
 
       <div class="notes-div">
         <!--<div class="notes-name">
@@ -197,10 +219,10 @@ body {
   font-weight: 800;
   font-size: 20px;
   text-transform: uppercase;
-  margin-bottom: 20px;">ABOUT E-BOOK</h2>
-        <p>{{$data->title}}</p>
-        <p>{{$data->author}}</p>
-        <p>hz</p>
+  margin-bottom: 20px;">ABOUT BOOK</h2>
+        <p>TITLE - <b>{{$data->title}}</b></p>
+        <p>AUTHOR - <b>{{$data->author}}</b></p>
+        <p>CATEGORY - <b>{{$data->category}}</b></p>
       </div>
       <div class="reviews-div">
         <h2 style="  font-family: sans-serif;

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>homepage</title>
+        <title>Home Page</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,9 +17,13 @@
     </head>
 
     
-    <body class="">
+    <body>
 
         <style>
+
+            body {
+                font-family: sans-serif;
+            }
             .navbar {
         position: sticky;
         top: 0;
@@ -137,6 +141,11 @@ button:hover {
         margin-bottom: 1.5%;
     }
 
+    .login-btn {
+        float: left;
+        margin-left: 0;
+    }
+
 
     .navbar button {
         align-items: center;
@@ -151,25 +160,24 @@ button:hover {
         <header class="navbar">
             <h1 class="logo" style="font-family: sans-serif; color: white; cursor: pointer; font-weight: 800">LOGO</h1>
     
-    
-    
             <nav class="nav-btn">
                 @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+
                     @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        <button onclick="window.location.href = '{{ route('home') }}'" class="login-btn">Dashboard</button>
                     @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                    <button class="login-btn" style="margin-right: 14px;" onclick="window.location.href = '{{ route('login') }}'">Login</button>
+
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                            <button onclick="window.location.href = '{{ route('register') }}'" class="register-btn">Register</button>
                         @endif
                     @endauth
-                </div>
-            @endif
-    
+
+                @endif
             </nav>
     
+
         </header>
 
 
