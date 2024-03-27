@@ -62,7 +62,7 @@ body {
   text-transform: uppercase;
 }
 
-.notes-type {
+#myTextbox {
   color: white;
   padding: 20px;
   font-family: sans-serif;
@@ -70,8 +70,10 @@ body {
   font-size: 14px;
   text-transform: uppercase;
   height: 93%;
+  width: 100%;
   border: none;
-
+  background-color: rgb(26, 25, 25);
+  resize: none; 
 }
 
 .back-btn-div {
@@ -193,16 +195,19 @@ body {
   <div class="back-btn-div">
     <span id="back-btn" onclick="window.location.href='{{'/uploadpage'}}'" class='bx bxs-left-arrow-alt'></span>
   </div>
+
   <div class="container">
       <iframe style="border-radius:20px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
 
       <div class="notes-div">
-        <!--<div class="notes-name">
+        <div class="notes-name">
           <p class="notes-p">notes</p>
-        </div>-->
-        <div id="notes-type-id" class="notes-type" contenteditable="true" data-placeholder="type your notes here...">
         </div>
+
+        <textarea id="myTextbox" placeholder="Type anything here..."></textarea>
+
       </div>
+      
 
   </div>
 
@@ -247,6 +252,27 @@ body {
     </div>
 
   </section>
+
+  <script>
+    const textbox = document.getElementById('myTextbox');
+    
+    // Load saved content on page load
+    function loadContent() {
+      const savedContent = localStorage.getItem('textboxContent');
+      if (savedContent) {
+        textbox.value = savedContent;
+      }
+    }
+    
+    // Save content when changes are made
+    function saveContent() {
+      localStorage.setItem('textboxContent', textbox.value);
+    }
+    
+    // Call the functions to initialize and save
+    loadContent(); 
+    textbox.addEventListener('input', saveContent); 
+    </script>
 
 
   

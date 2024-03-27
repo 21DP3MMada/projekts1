@@ -76,6 +76,7 @@ class HomeController extends Controller
         return view('product', compact('data'));
     }
 
+
     public function download(Request $request, $file)
     {
         return response()->download(public_path('assets/' . $file));

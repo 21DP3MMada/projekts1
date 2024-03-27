@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
@@ -15,6 +16,11 @@ Route::get('/uploadpage', [HomeController::class, 'uploadpage']);
 Route::post('/uploadbook', [HomeController::class, 'store']);
 
 Route::get('/uploadpage', [HomeController::class, 'show']);
+
+Route::get('/managepage', [UserController::class, 'index'])->name('user.manage');
+
+Route::put('/users/{user}', [UserController::class, 'updateUserType'])->name('users.updateUserType');
+
 
 Route::get('/view/{id}', [HomeController::class, 'view'])->name('view');
 

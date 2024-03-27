@@ -25,9 +25,12 @@
   </div>
 
 
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-  <a style="" class="btn-kkas" href="{{'/uploadpage'}}">Manage Books</a>
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 " style="display: flex; margin-bottom: 10px;">
+  <a style=" font-size: 14px; font-family: sans-serif; text-transform: uppercase; font-weight: 800;" class="btn-kkas" href="{{'/uploadpage'}}">Manage Books</a>
   </div>
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 " style="display: flex;">
+    <a style=" font-size: 14px; font-family: sans-serif; text-transform: uppercase; font-weight: 800;" class="btn-kkas" href="{{'/managepage'}}">Manage Users</a>
+    </div>
 
 
 
