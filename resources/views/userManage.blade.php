@@ -4,85 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
+    <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
   <style>
-
-    * {
-      padding: 0;
-      margin: 0;
-      font-family: sans-serif;
-      box-sizing: border-box;
-    }
-  
-    body {
-      background-color: rgb(0, 0, 0);
-        min-width: 375px;
-        align-items: center;
-        justify-content: center;
-        font-family: sans-serif;
-  
-    }
-  
-    .navbar {
-    display: flex;
-    background-color: blueviolet;
-    height: 80px;
-    padding: 0px 50px;
-  }
-
-  .back-btn-div {
-    display: flex;
-    margin-top: 20px;
-  }
-
-  #back-btn {
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: white;
-    text-align: center;
-    color: black;
-    line-height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.25rem;
-  }
-  
-    .container {
-      display: flex;
-      padding: 10px 50px;
-      width: 100%;
-    }
-
-  
-  .alert-danger {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-    width: 450px;
-    background-color: #2b0909;
-    height: 46px;
-    border-radius: 20px;
-    padding-left: 20px;
-    padding-top: 12px;
-    margin-bottom: 10px;
-  }
-  
-  .alert-success {
-    color: green;
-    font-size: 14px;
-    margin-top: 5px;
-    width: 450px;
-    background-color: #072907;
-    height: 46px;
-    border-radius: 20px;
-    padding-left: 20px;
-    display: flex;
-    padding-top: 12px;
-    margin-bottom: 10px;
-  }
 
 .upload-text {
   font-family: sans-serif;
@@ -94,15 +20,11 @@
 }
 
 table {
-  
+  border-radius: 10px;
   border: white 1px solid;
-  padding: 10px;
   width: 100%;
-  border-radius: 20px;
-  border-collapse: collapse;
   min-width: 600px;
 }
-
 
 th {
   color: white;
@@ -111,7 +33,7 @@ th {
   text-transform: uppercase;
   text-align: left;
   padding: 10px 2vw;
-  background-color: rgb(36, 35, 35);
+  background-color: rgb(37, 37, 37);
 }
 
 td {
@@ -121,7 +43,7 @@ td {
 }
 
 tbody {
-  background-color: rgb(0, 0, 0);
+  background-color: #1c1a1a;
 }
 
 .filter-div {
@@ -132,19 +54,17 @@ tbody {
     display: block;
     margin-bottom: 10px;
   }
-
-  
 }
 
 #myInput {
-  width: 300px;
+  width: 100%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: none;
   border-radius: 20px;
   font-size: 12px;
   outline: transparent;
-  background-color:rgb(36, 35, 35);
+  background-color:#1c1a1a;
   margin-bottom: 12px;
   color: white;
   text-transform: uppercase;
@@ -164,14 +84,12 @@ tbody {
   font-weight: 800;
   font-size: 12px;
   border-radius: 20px;
-  background-color: rgb(36, 35, 35);
+  background-color: #1c1a1a;
   cursor: pointer;
   text-transform: uppercase;
   margin-top: 0;
   height: 40px;
   margin-left: 10px; 
-
-
 }
 
 div[style*="overflow-x:auto"] { 
@@ -179,20 +97,51 @@ div[style*="overflow-x:auto"] {
   -webkit-overflow-scrolling: touch; 
 }
 
+.item-container {
+    background-color: rgb(37, 37, 37);
+    border-radius: 10px;
+    padding: 16px;
+}
 
-
-
-  </style>
+</style>
 
 <div class="navbar">
+
   <div class="back-btn-div">
     <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
   </div>
+
+  @auth 
+    <nav class="nav-btn">
+        <button class="user-btn" id="dropdown-toggle">
+            {{ Auth::user()->name }}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
+            <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
+            <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
+                @csrf 
+            </form>
+        </div>
+      </nav>
+  @endauth
+
+
+
 </div>
 
-  <div style="flex-direction: column;" class=container>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#dropdown-toggle').click(function () {
+    $(this).next('.dropdown-menu').toggle();
+  });
+</script>
 
-    <h1 style="margin-top: 20px" class="upload-text">User Management</h1>
+  <div class="main-container">
+
+  <div class="item-container">
+    <h1 class="upload-text">User Management</h1>
 
     <!-- Filters --> 
     <div class="filter-div"> 
@@ -203,38 +152,41 @@ div[style*="overflow-x:auto"] {
 
     <div style="overflow-x:auto;">
       <table id="myTable">
-          <thead>
-              <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>User Type</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-              </tr>
-          </thead>
-          <tbody>
-            @foreach($users as $user)
-            <tr style="">
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    <form action="{{ route('users.updateUserType', $user) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <select name="usertype" onchange="this.form.submit()">
-                            <option value="user" {{ $user->usertype == 'user' ? 'selected' : '' }}>User</option>
-                            <option value="admin" {{ $user->usertype == 'admin' ? 'selected' : '' }}>Admin</option>
-                        </select>
-                    </form>
-                </td>
-                <td>{{ $user->created_at }}</td>
-                <td>{{ $user->updated_at }}</td>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Created At</th>
+                <th>Updated At</th>
             </tr>
-        @endforeach
-          </tbody>
+        </thead>
+        <tbody>
+          @foreach($users as $user)
+            <tr style="">
+              <td>{{ $user->id }}</td>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              <td>
+                <form action="{{ route('users.updateUserType', $user) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <select name="usertype" onchange="this.form.submit()">
+                    <option value="user" {{ $user->usertype == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="admin" {{ $user->usertype == 'admin' ? 'selected' : '' }}>Admin</option>
+                  </select>
+                </form>
+              </td>
+              <td>{{ $user->created_at }}</td>
+              <td>{{ $user->updated_at }}</td>
+            </tr>
+          @endforeach
+        </tbody>
       </table>
+    </div>
+
+
     </div>
   </div>
 

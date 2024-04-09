@@ -4,57 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Upload Page</title>
+  <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
-
-  * {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-  }
-
-  body {
-    background-color: rgb(0, 0, 0);
-      min-width: 375px;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
-
-  }
-
-  .navbar {
-    display: flex;
-    background-color: blueviolet;
-    height: 80px;
-    padding: 0px 50px;
-  }
-
-  .back-btn-div {
-    display: flex;
-    margin-top: 20px;
-  }
-
-  #back-btn {
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: white;
-    text-align: center;
-    color: black;
-    line-height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.25rem;
-  }
-
-  .container {
-    display: flex;
-    padding: 10px 50px;
-    width: 100%;
-  }
-
   .upload-div {
     display: block;
   }
@@ -67,11 +20,10 @@
   }
   .upload-book-form {
     border: rgb(255, 255, 255) 1px solid;
-    background-color: rgb(0, 0, 0);
+    background-color: #1c1a1a;
     padding: 15px;
     border-radius: 8px;
     display: block;
-    width: 450px;
     color: white;
   }
   .form-group {
@@ -119,33 +71,6 @@
   transition: all 0.15;
 }
 
-.alert-danger {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  width: 100%;
-  background-color: #2b0909;
-  height: 46px;
-  border-radius: 20px;
-  padding-left: 20px;
-  padding-top: 12px;
-  margin-bottom: 10px;
-}
-
-.alert-success {
-  color: green;
-  font-size: 14px;
-  margin-top: 5px;
-  width: 100%;
-  background-color: #072907;
-  height: 46px;
-  border-radius: 20px;
-  padding-left: 20px;
-  display: flex;
-  padding-top: 12px;
-  margin-bottom: 10px;
-}
-
 .remove-btn {
   color: rgb(255, 0, 0);
   text-decoration: none;
@@ -182,27 +107,77 @@
   font-size: 12px;
   text-transform: uppercase;
   text-decoration: none;
-  
+}
+
+.item-container {
+    background-color: rgb(37, 37, 37);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: grid;
+    grid-gap: 16px;
+    padding: 16px;
+    
+    @media (min-width: 769px) {
+    	grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 961px) {
+    	grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (min-width: 1201px) {
+    	grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.item-card {
+    background-color: #1c1a1a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: white 1px solid;
+    border-radius: 10px;
+    height: 400px;
 }
   </style>
 </head>
 
 
-<body>
-  <div class="navbar">
-    <div class="back-btn-div">
-      <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
-    </div>
+<div class="navbar">
+
+  <div class="back-btn-div">
+    <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
   </div>
 
-  <div style="flex-direction: column;" class=container>
+  @auth 
+    <nav class="nav-btn">
+        <button class="user-btn" id="dropdown-toggle">
+            {{ Auth::user()->name }}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
+            <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
+            <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
+                @csrf 
+            </form>
+        </div>
+      </nav>
+  @endauth
 
-    <div class="upload-div">
-      <h2 class="upload-text">
-          Upload Book
-      </h2>
 
-      @if ($errors->any())
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#dropdown-toggle').click(function () {
+    $(this).next('.dropdown-menu').toggle();
+  });
+</script>
+
+  <div class="main-container">
+    @if ($errors->any())
     <div class="alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -222,8 +197,15 @@
     <div class="alert-success">
         {{ session('success') }}
     </div>
-@endif
+@endif  
 
+    
+    <div class="text-container">
+      <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Upload Book</h1>
+    </div>
+    <div class="item-container">
+
+      <div class="upload-div">
     
       <form class="upload-book-form" action="{{url('uploadbook')}}" method="post" enctype="multipart/form-data"> 
 
@@ -252,16 +234,16 @@
       </form>
 
     </div>
+  </div>
 
+    <div class="text-container">
+      <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Manage Books</h1>
+    </div>
 
-    <h2 style="margin-top: 20px" class="upload-text">
-      Manage Books
-    </h2>
-
-    <div style="display: flex; flex-wrap: wrap;">
+    <div class="item-container">
 
       @foreach ($data as $data)
-        <div style="display: flex; flex-direction: column; margin-right: 20px; width: 250px; height: 300px; border: rgb(255, 255, 255) 1px solid; padding: 5px; border-radius: 8px" class="book-card">
+        <div class="item-card">
           <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->title ?? ''}}</h5>
           <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->author ?? ''}}</h5>
           <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->category ?? ''}}</h5>

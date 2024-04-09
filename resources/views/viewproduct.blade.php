@@ -5,28 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>View Book</title>
+  <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
-
-* {
-  padding: 0;
-  margin: 0;
-  font-family: sans-serif;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: rgb(0, 0, 0);
-    min-width: 375px;
-    align-items: center;
-    justify-content: center;
-
-  }
 
   .container {
     display: flex;
     padding: 10px 50px;
     width: 100%;
+    @media (max-width: 650px) {
+    padding: 0 10px;
+  }
   }
 
   .pdf-viewer {
@@ -74,24 +63,6 @@ body {
   border: none;
   background-color: rgb(26, 25, 25);
   resize: none; 
-}
-
-.back-btn-div {
-  display: block;
-  margin-top: 0px;
-}
-
-#back-btn {
-  position: absolute;
-  height: 40px;
-  width: 40px;
-  background: white;
-  text-align: center;
-  color: black;
-  line-height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.25rem;
 }
 
 @media screen and (max-width: 400px) {
@@ -142,7 +113,7 @@ body {
 }
 
 .about-pdf {
-  background-color: rgb(26, 25, 25);
+  background-color: rgb(37, 37, 37);
   width: 50%;
   margin-right: 30px;
   color: white;
@@ -153,7 +124,7 @@ body {
 }
 
 .reviews-div {
-  background-color: rgb(26, 25, 25);
+  background-color: rgb(37, 37, 37);
   width: 50%;
   color: white;
   position: relative;
@@ -164,44 +135,63 @@ body {
 }
 
 .review-card {
-  background-color: rgb(37, 37, 37);
+  background-color: #1c1a1a;
   padding: 20px;
   border-radius: 20px;
   margin-top: 10px;
 }
 
-.navbar {
-    display: flex;
-    background-color: blueviolet;
-    height: 80px;
-    padding: 0px 50px;
-  }
+.item-container {
+    background-color: rgb(37, 37, 37);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: grid;
+    grid-gap: 16px;
+    padding: 16px;
+    
+    @media (min-width: 768px) {
+    	grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 960px) {
+    	grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (min-width: 1200px) {
+    	grid-template-columns: repeat(4, 1fr);
+    }
+}
 
-  .back-btn-div {
-    display: flex;
-    margin-top: 20px;
-  }
 
-  #back-btn {
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: white;
-    text-align: center;
-    color: black;
-    line-height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.25rem;
-  }
+
   </style>
 </head>
 
 <body>
   <div class="navbar">
+
     <div class="back-btn-div">
       <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
     </div>
+
+    @auth 
+      <nav class="nav-btn">
+          <button class="user-btn" id="dropdown-toggle">
+              {{ Auth::user()->name }}
+          </button>
+          <div class="dropdown-menu">
+              <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
+              <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
+              <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
+                  @csrf 
+              </form>
+          </div>
+        </nav>
+    @endauth
+
+
+
   </div>
 
   <div class="container">
@@ -227,22 +217,16 @@ body {
     </div>
 
     <div class="under-pdf">
-      <div class="about-pdf">
-        <h2 style="  font-family: sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-bottom: 20px;">ABOUT BOOK</h2>
+
+      <div style="color: white;" class="about-pdf">
+        <h2 style="  font-family: sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase; margin-bottom: 20px;">ABOUT BOOK</h2>
         <p>TITLE - <b>{{$data->title}}</b></p>
         <p>AUTHOR - <b>{{$data->author}}</b></p>
         <p>CATEGORY - <b>{{$data->category}}</b></p>
       </div>
       <div class="reviews-div">
-        <h2 style="  font-family: sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  text-transform: uppercase;">REVIEWS</h2>
-  <!--
+        <h2 style="  font-family: sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase;">REVIEWS</h2>
+
         <div class="review-card">
           <h3>username</h3>
           <p>review text</p>
@@ -255,7 +239,7 @@ body {
           <h3>username</h3>
           <p>review text</p>
         </div>
-        -->
+        
       </div>
     </div>
 
