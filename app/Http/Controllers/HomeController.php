@@ -28,6 +28,21 @@ class HomeController extends Controller
     }
 
 
+    public function redirectAfterBack()
+    {
+        $usertype = Auth()->user()->usertype;
+
+        if ($usertype === 'user') {
+            return redirect()->route('bookpage');
+        } else if ($usertype === 'admin') {
+            return redirect()->route('uploadpage');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
+
     public function post()
     {
         return view('post');
@@ -67,13 +82,19 @@ class HomeController extends Controller
         $data->save();
 
         return redirect()->back()->with('success', 'Book uploaded successfully!');
-        ;
+        
     }
 
     public function show()
     {
         $data = product::all();
         return view('product', compact('data'));
+    }
+
+    public function bookpage()
+    {
+        $data = product::all();
+        return view('allBooks', compact('data'));
     }
 
 

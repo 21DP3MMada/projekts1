@@ -24,28 +24,34 @@
 
   }
 
-  .back-btn-div {
-      display: flex;
-      margin-left: 20px;
-      margin-top: 20px;
-    }
+  .navbar {
+    display: flex;
+    background-color: blueviolet;
+    height: 80px;
+    padding: 0px 50px;
+  }
 
-    #back-btn {
-      position: absolute;
-      height: 40px;
-      width: 40px;
-      background: white;
-      text-align: center;
-      color: black;
-      line-height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.25rem;
-    }
+  .back-btn-div {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  #back-btn {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background: white;
+    text-align: center;
+    color: black;
+    line-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+  }
 
   .container {
     display: flex;
-    padding: 10px 100px;
+    padding: 10px 50px;
     width: 100%;
   }
 
@@ -117,7 +123,7 @@
   color: red;
   font-size: 14px;
   margin-top: 5px;
-  width: 450px;
+  width: 100%;
   background-color: #2b0909;
   height: 46px;
   border-radius: 20px;
@@ -130,7 +136,7 @@
   color: green;
   font-size: 14px;
   margin-top: 5px;
-  width: 450px;
+  width: 100%;
   background-color: #072907;
   height: 46px;
   border-radius: 20px;
@@ -183,8 +189,10 @@
 
 
 <body>
-  <div class="back-btn-div">
-    <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
+  <div class="navbar">
+    <div class="back-btn-div">
+      <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
+    </div>
   </div>
 
   <div style="flex-direction: column;" class=container>
@@ -201,6 +209,12 @@
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert-danger">
+        {{ session('error') }}
     </div>
 @endif
 
@@ -258,6 +272,10 @@
               @csrf
               @method('DELETE')
               <button class="remove-btn" type="submit">Remove</button>
+          </form>
+          <form action="{{ route('favorites.add', $data->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="favorite-btn"><i class='bx bx-star'></i></button>
           </form>
           </div>
         </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>View File</title>
+  <title>View Book</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
 
@@ -21,35 +21,35 @@ body {
     align-items: center;
     justify-content: center;
 
-}
+  }
 
   .container {
     display: flex;
-    padding: 10px 100px;
+    padding: 10px 50px;
     width: 100%;
   }
 
   .pdf-viewer {
-    width: 70%;
+    width: 60%;
     height: 750px;
     border: 1px solid #ddd;
     }
 
   .notes-div {
     background-color: rgb(26, 25, 25);
-    width: 30%;
+    width: 40%;
     margin-left: 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
 
   }
 
-.notes-name {
-  background-color: rgb(37, 37, 37);
-  height: 7%;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-}
+  .notes-name {
+    background-color: rgb(37, 37, 37);
+    height: 7%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
 
 .notes-p {
   display: flex;
@@ -62,7 +62,7 @@ body {
   text-transform: uppercase;
 }
 
-#myTextbox {
+#note-area {
   color: white;
   padding: 20px;
   font-family: sans-serif;
@@ -102,7 +102,7 @@ body {
 }
 
 .container-under-pdf-view {
-  padding: 10px 100px;
+  padding: 10px 50px;
   position: relative;
 }
 
@@ -170,41 +170,49 @@ body {
   margin-top: 10px;
 }
 
-.back-btn-div {
-          display: flex;
-          margin-left: 20px;
-          margin-top: 20px;
-        }
-    
-        #back-btn {
-          position: absolute;
-          height: 40px;
-          width: 40px;
-          background: white;
-          text-align: center;
-          color: black;
-          line-height: 40px;
-          border-radius: 50%;
-          cursor: pointer;
-          font-size: 1.25rem;
-        }
+.navbar {
+    display: flex;
+    background-color: blueviolet;
+    height: 80px;
+    padding: 0px 50px;
+  }
+
+  .back-btn-div {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  #back-btn {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background: white;
+    text-align: center;
+    color: black;
+    line-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+  }
   </style>
 </head>
 
 <body>
-  <div class="back-btn-div">
-    <span id="back-btn" onclick="window.location.href='{{'/uploadpage'}}'" class='bx bxs-left-arrow-alt'></span>
+  <div class="navbar">
+    <div class="back-btn-div">
+      <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
+    </div>
   </div>
 
   <div class="container">
-      <iframe style="border-radius:20px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
+      <iframe style="border-radius:10px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
 
       <div class="notes-div">
         <div class="notes-name">
           <p class="notes-p">notes</p>
         </div>
 
-        <textarea id="myTextbox" placeholder="Type anything here..."></textarea>
+        <textarea id="note-area"  placeholder="Type anything here..."></textarea>
 
       </div>
       
@@ -254,7 +262,9 @@ body {
   </section>
 
   <script>
-    const textbox = document.getElementById('myTextbox');
+
+/*
+    const textbox = document.getElementById('note-area');
     
     // Load saved content on page load
     function loadContent() {
@@ -271,7 +281,7 @@ body {
     
     // Call the functions to initialize and save
     loadContent(); 
-    textbox.addEventListener('input', saveContent); 
+    textbox.addEventListener('input', saveContent); */
     </script>
 
 

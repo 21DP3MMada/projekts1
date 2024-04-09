@@ -41,9 +41,7 @@
                             {{ __('Notes') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('favorites')">
-                            {{ __('Favorites') }}
-                        </x-dropdown-link>
+                        
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -95,9 +93,7 @@
                     {{ __('Notes') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('favorites')">
-                    {{ __('Favorites') }}
-                </x-responsive-nav-link>
+                
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

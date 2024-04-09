@@ -25,28 +25,34 @@
   
     }
   
-    .back-btn-div {
-        display: flex;
-        margin-left: 20px;
-        margin-top: 20px;
-      }
-  
-      #back-btn {
-        position: absolute;
-        height: 40px;
-        width: 40px;
-        background: white;
-        text-align: center;
-        color: black;
-        line-height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.25rem;
-      }
+    .navbar {
+    display: flex;
+    background-color: blueviolet;
+    height: 80px;
+    padding: 0px 50px;
+  }
+
+  .back-btn-div {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  #back-btn {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background: white;
+    text-align: center;
+    color: black;
+    line-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+  }
   
     .container {
       display: flex;
-      padding: 10px 100px;
+      padding: 10px 50px;
       width: 100%;
     }
 
@@ -119,8 +125,15 @@ tbody {
 }
 
 .filter-div {
-  display: grid; /* Enable grid layout */
+  display: grid; 
   grid-template-columns: 1fr auto;
+
+  @media (max-width: 768px) {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  
 }
 
 #myInput {
@@ -157,6 +170,8 @@ tbody {
   margin-top: 0;
   height: 40px;
   margin-left: 10px; 
+
+
 }
 
 div[style*="overflow-x:auto"] { 
@@ -165,11 +180,15 @@ div[style*="overflow-x:auto"] {
 }
 
 
+
+
   </style>
 
+<div class="navbar">
   <div class="back-btn-div">
     <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
   </div>
+</div>
 
   <div style="flex-direction: column;" class=container>
 
