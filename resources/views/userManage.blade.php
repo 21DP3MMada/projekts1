@@ -53,6 +53,7 @@ tbody {
   @media (max-width: 768px) {
     display: block;
     margin-bottom: 10px;
+    margin-left: 0px;
   }
 }
 
@@ -90,6 +91,9 @@ tbody {
   margin-top: 0;
   height: 40px;
   margin-left: 10px; 
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
 }
 
 div[style*="overflow-x:auto"] { 
@@ -99,49 +103,25 @@ div[style*="overflow-x:auto"] {
 
 .item-container {
     background-color: rgb(37, 37, 37);
-    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     padding: 16px;
 }
 
 </style>
 
-<div class="navbar">
-
-  <div class="back-btn-div">
-    <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
-  </div>
-
-  @auth 
-    <nav class="nav-btn">
-        <button class="user-btn" id="dropdown-toggle">
-            {{ Auth::user()->name }}
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
-            <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
-            <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
-                @csrf 
-            </form>
-        </div>
-      </nav>
-  @endauth
+@include('navbar')
 
 
-
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $('#dropdown-toggle').click(function () {
-    $(this).next('.dropdown-menu').toggle();
-  });
-</script>
 
   <div class="main-container">
 
+    <div class="text-container">
+      <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">User Management</h1>
+    </div>
+
   <div class="item-container">
-    <h1 class="upload-text">User Management</h1>
+    
 
     <!-- Filters --> 
     <div class="filter-div"> 
@@ -185,11 +165,24 @@ div[style*="overflow-x:auto"] {
         </tbody>
       </table>
     </div>
-
-
-    </div>
   </div>
 
+
+  <div class="text-container">
+    <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Send notification</h1>
+  </div>
+
+  <div class="item-container">
+    <form method="POST" action="{{ route('admin.send.notification') }}">
+      @csrf
+      <textarea name="message" placeholder="Enter your notification message"></textarea>
+      <button class="btn-kkas" type="submit">Send</button>
+  </form>
+  </div>
+
+
+
+  </div>
 
 
   

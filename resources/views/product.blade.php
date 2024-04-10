@@ -143,38 +143,7 @@
 </head>
 
 
-<div class="navbar">
-
-  <div class="back-btn-div">
-    <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
-  </div>
-
-  @auth 
-    <nav class="nav-btn">
-        <button class="user-btn" id="dropdown-toggle">
-            {{ Auth::user()->name }}
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
-            <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
-            <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
-                @csrf 
-            </form>
-        </div>
-      </nav>
-  @endauth
-
-
-
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $('#dropdown-toggle').click(function () {
-    $(this).next('.dropdown-menu').toggle();
-  });
-</script>
+@include('navbar')
 
   <div class="main-container">
     @if ($errors->any())

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -27,7 +29,6 @@ class HomeController extends Controller
         }
     }
 
-
     public function redirectAfterBack()
     {
         $usertype = Auth()->user()->usertype;
@@ -40,8 +41,6 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
-
-
 
     public function post()
     {
@@ -82,7 +81,7 @@ class HomeController extends Controller
         $data->save();
 
         return redirect()->back()->with('success', 'Book uploaded successfully!');
-        
+
     }
 
     public function show()
@@ -127,6 +126,23 @@ class HomeController extends Controller
         } else {
             return redirect()->back()->withErrors(['error' => 'nav labi']);
         }
+    }
+
+
+    public function sendNotification(Request $request)
+    {
+        $request->validate(['message' => 'required']);
+
+        // Send to all users (adjust if you want specific targeting)
+        $users = User::all();
+        foreach ($users as $user) {
+            Notification::create([
+                'user_id' => $user->id,
+                'message' => $request->message
+            ]);
+        }
+
+        return back()->with('success', 'Notification sent!');
     }
 
 }

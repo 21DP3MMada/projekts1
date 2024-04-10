@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Favorite;
 use App\Models\Product;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +13,7 @@ class FavoritesController extends Controller
     {
         $user = Auth::user();
         $favorites = $user->favorites()->with('product')->get();
+
 
         return view('favorites', compact('favorites'));
     }
@@ -50,6 +51,9 @@ class FavoritesController extends Controller
 
         return redirect()->back()->with('success', 'Book removed from favorites!');
     }
+
+
+
 }
 
 

@@ -1,29 +1,49 @@
-<x-app-layout>
+@include('navbar')
+
     <style>
-        .btn-kkas {
-            background-color: black;
-            border: white;
-            color: white;
-            padding: 10px;
-            border-radius: 20px;
-            margin-top: 20px;
+
+        .item-container {
+            background-color: rgb(37, 37, 37);
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding: 16px;
+        }
+
+        #dropdown-1 {
+            background-color: rgb(56, 56, 56);
+        }
+        
+        .back-btn-div {
+            display: none;
+        }
+
+        #back-btn {
+            display: none;
+        }
+
+        .logo {
+            display: flex;
         }
     </style>
 
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <div class="main-container">
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 " style="display: flex; margin-bottom: 10px;">
-        <a style=" font-size: 14px; font-family: sans-serif; text-transform: uppercase; font-weight: 800;" class="btn-kkas" href="{{'/bookpage'}}">View All Books</a>
+        <div class="text-container">
+            <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Dashbaord</h1>
+        </div>
+
+        <div class="item-container">
+
+            
+            <a class="btn-kkas" href="{{'/bookpage'}}">View All Books</a>
+
+            <a class="btn-kkas" href="{{'/favorites'}}">View Favorites</a>
+
+        </div>
+        
     </div>
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 " style="display: flex; margin-bottom: 10px;">
-        <a style=" font-size: 14px; font-family: sans-serif; text-transform: uppercase; font-weight: 800;" class="btn-kkas" href="{{'/favorites'}}">View Favorites</a>
-    </div>
+</div>
 
 
-</x-app-layout>
+

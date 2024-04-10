@@ -13,7 +13,7 @@
     display: flex;
     padding: 10px 50px;
     width: 100%;
-    @media (max-width: 650px) {
+    @media (max-width: 769px) {
     padding: 0 10px;
   }
   }
@@ -75,6 +75,9 @@
 .container-under-pdf-view {
   padding: 10px 50px;
   position: relative;
+  @media (max-width: 769px) {
+    padding: 0 10px;
+  }
 }
 
 .under-pdf {
@@ -168,31 +171,7 @@
 </head>
 
 <body>
-  <div class="navbar">
-
-    <div class="back-btn-div">
-      <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
-    </div>
-
-    @auth 
-      <nav class="nav-btn">
-          <button class="user-btn" id="dropdown-toggle">
-              {{ Auth::user()->name }}
-          </button>
-          <div class="dropdown-menu">
-              <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
-              <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
-              <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
-                  @csrf 
-              </form>
-          </div>
-        </nav>
-    @endauth
-
-
-
-  </div>
+  @include('navbar')
 
   <div class="container">
       <iframe style="border-radius:10px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
@@ -213,7 +192,7 @@
 
     <div class="metadata">
       <h2>{{$data->title}}</h2>
-      <button>FAVORITE</button>
+      <button><i class='bx bx-star'></i> FAVORITE</button>
     </div>
 
     <div class="under-pdf">

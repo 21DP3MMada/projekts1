@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Favorites</title>
   <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -41,17 +42,23 @@
 
   
   .remove-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
     color: rgb(255, 0, 0);
     text-decoration: none;
     border: rgb(255, 0, 0) 1px solid;
     border-radius: 20px;
-    padding: 10px;
+    margin-right: 5px;
+    margin-top: 10px;
+    padding: 5px;
     font-family: sans-serif;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 20px;
     text-transform: uppercase;
     background-color: #1a1a1a;
     cursor: pointer;
+    width: 40px;
   }
   
   .view-btn {
@@ -94,50 +101,21 @@
 }
 
 .item-card {
-    background-color: #1c1a1a;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: white 1px solid;
-    border-radius: 10px;
-    height: 400px;
-}
+      background-color: #1c1a1a;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      border: white 1px solid;
+      border-radius: 10px;
+      height: 400px;
+      position: relative;
+  }
   </style>
 
 </head>
 <body>
-  <div class="navbar">
 
-    <div class="back-btn-div">
-      <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
-    </div>
-
-    @auth 
-      <nav class="nav-btn">
-          <button class="user-btn" id="dropdown-toggle">
-              {{ Auth::user()->name }}
-          </button>
-          <div class="dropdown-menu">
-              <a class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
-              <a class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
-              <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
-                  @csrf 
-              </form>
-          </div>
-        </nav>
-    @endauth
-
-
-
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $('#dropdown-toggle').click(function () {
-      $(this).next('.dropdown-menu').toggle();
-    });
-  </script>
+  @include('navbar')
 
   <div class="main-container" >
 
@@ -172,7 +150,7 @@
               <form action="{{ route('favorites.delete', $favorite->product_id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="remove-btn" style="margin-top: 5px; ">Remove</button>
+                  <button type="submit" class="remove-btn" style="margin-top: 5px; "><i class='bx bx-x' ></i></button>
               </form>
           </div>
       @endforeach
