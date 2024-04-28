@@ -48,4 +48,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favorite::class);
     }
+
+    // app/Models/User.php
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
 }

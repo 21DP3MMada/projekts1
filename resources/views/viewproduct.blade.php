@@ -14,14 +14,21 @@
     padding: 10px 50px;
     width: 100%;
     @media (max-width: 769px) {
-    padding: 0 10px;
-  }
+      padding: 0 10px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+
+    }
   }
 
   .pdf-viewer {
     width: 60%;
     height: 750px;
     border: 1px solid #ddd;
+    @media (max-width: 769px) {
+      width: 100%;
+
+    }
     }
 
   .notes-div {
@@ -30,6 +37,11 @@
     margin-left: 20px;
     border: none;
     border-radius: 10px;
+    @media (max-width: 769px) {
+      width: 100%;
+      margin-top: 20px;
+      margin-left: 0px;
+    }
 
   }
 
@@ -38,6 +50,9 @@
     height: 7%;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    @media (max-width: 769px) {
+      height: 46px;
+    }
   }
 
 .notes-p {
@@ -49,6 +64,9 @@
   font-weight: 800;
   font-size: 16px;
   text-transform: uppercase;
+  @media (max-width: 769px) {
+      padding-top: 10px;
+    }
 }
 
 #note-area {
@@ -63,6 +81,9 @@
   border: none;
   background-color: rgb(26, 25, 25);
   resize: none; 
+  @media (max-width: 769px) {
+      height: 400px;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -174,15 +195,16 @@
   @include('navbar')
 
   <div class="container">
-      <iframe style="border-radius:10px; " class="pdf-viewer" src="/assets/{{$data->file}}"></iframe>
+
+      <iframe style="border-radius:10px; " class="pdf-viewer" src="/assets/{{$data->file}}">
+      </iframe>
 
       <div class="notes-div">
         <div class="notes-name">
           <p class="notes-p">notes</p>
         </div>
-
-        <textarea id="note-area"  placeholder="Type anything here..."></textarea>
-
+        <textarea id="note-area"  placeholder="Type anything here...">
+        </textarea>
       </div>
       
 
@@ -225,27 +247,44 @@
   </section>
 
   <script>
-
-/*
-    const textbox = document.getElementById('note-area');
-    
-    // Load saved content on page load
-    function loadContent() {
-      const savedContent = localStorage.getItem('textboxContent');
-      if (savedContent) {
-        textbox.value = savedContent;
+    $(document).ready(function() {
+      const productId = {{ $data->id }};
+      let saveTimeout;
+  
+      // Load the existing note
+      $.get(`/notes/${productId}`, function(note) {
+        if (note) {
+          $('#note-area').val(note.note_text);
+        }
+      });
+  
+      // Save (or update) the note with a slight delay
+      $('#note-area').on('input', function() {
+        clearTimeout(saveTimeout); 
+  
+        saveTimeout = setTimeout(function() {
+          const noteText = $('#note-area').val();
+          saveOrUpdateNote(noteText, productId);  
+        }, 1000); 
+      });
+  
+      function saveOrUpdateNote(noteText, productId) {
+        $.ajax({
+          url: `/notes/${productId}`,
+          method: 'PUT', // Use 'PUT' for updating
+          data: {
+            note_text: noteText,
+            product_id: productId,
+            _token: "{{ csrf_token() }}" 
+          },
+          success: function(response) {
+            console.log(response.message); 
+          }
+        });
       }
-    }
-    
-    // Save content when changes are made
-    function saveContent() {
-      localStorage.setItem('textboxContent', textbox.value);
-    }
-    
-    // Call the functions to initialize and save
-    loadContent(); 
-    textbox.addEventListener('input', saveContent); */
-    </script>
+    });
+  </script>
+  
 
 
   

@@ -15,6 +15,10 @@
           display: flex;
           margin-left: 20px;
           margin-top: 20px;
+
+          @media(max-width: 640px) {
+    margin-left: 5px;
+  }
         }
     
         #back-btn {
@@ -68,6 +72,11 @@
             cursor: pointer;
         }
 
+        ul {
+    list-style-type: none;
+}
+
+
       </style>
     
       <div class="back-btn-div">
@@ -90,6 +99,7 @@
             <x-input-error :messages="$errors->get('email')"  class="alert-danger" />
             <x-input-error :messages="$errors->get('password')" class="alert-danger" />
             <!-- Email Address -->
+            
             <div class="form-group" >
                 
                 <input style="height: 42px;" placeholder="EMAIL" id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />

@@ -13,12 +13,9 @@ return new class extends Migration {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->text('note_text');
-            $table->timestamps(); // created_at, updated_at
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
         });
     }
 

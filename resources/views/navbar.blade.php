@@ -11,7 +11,7 @@
   <h1 class="logo" style="font-family: sans-serif; color: white; cursor: pointer; font-weight: 800">LOGO</h1>
 
   <div class="back-btn-div">
-    <span id="back-btn" onclick="window.location.href='{{'/home'}}'" class='bx bxs-left-arrow-alt'></span>
+    <span id="back-btn" class='bx bxs-left-arrow-alt'></span>
   </div>
 
   @auth 
@@ -42,7 +42,10 @@
         </button>
         <div class="dropdown-menu">
             <a id="dropdown-1" class="dropdown-item" onclick=	" window.location.href='{{'/home'}}'">{{ __('Dashboard') }}</a> 
+            <a id="dropdown-3" class="dropdown-item" onclick="window.location.href='{{'/favorites'}}'">{{ __('Favorites') }}</a> 
+            <a id="dropdown-4" class="dropdown-item" onclick="window.location.href='{{'/viewnotes'}}'">{{ __('Notes') }}</a> 
             <a id="dropdown-2" class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
+
             <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
                 @csrf 
@@ -103,4 +106,21 @@ function markAsRead(buttonElement) {
       });
   }
 
+</script>
+
+
+<script>
+  document.getElementById('back-btn').addEventListener('click', function() {
+      if (localStorage.getItem('previousURL') && localStorage.getItem('previousURL') !== window.location.href) { 
+          window.location.href = localStorage.getItem('previousURL');
+          localStorage.removeItem('previousURL');
+      } else {
+          window.location.href = '{{ route('home') }}'; 
+      }
+  });
+
+  // On page load, store the current URL (only if different from previous)
+  if (!localStorage.getItem('previousURL') || localStorage.getItem('previousURL') !== window.location.href) { 
+      localStorage.setItem('previousURL', window.location.href);
+  }
 </script>

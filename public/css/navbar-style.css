@@ -272,3 +272,11 @@ body {
   text-transform: uppercase; 
   font-weight: 800;
 }
+
+.badge {
+  background-color: red;
+  border-radius: 20px;
+  width: 20px;
+  position: absolute;
+  top: 15;
+}
