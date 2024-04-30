@@ -140,6 +140,9 @@ div[style*="overflow-x:auto"] {
                 <th>User Type</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -160,6 +163,17 @@ div[style*="overflow-x:auto"] {
               </td>
               <td>{{ $user->created_at }}</td>
               <td>{{ $user->updated_at }}</td>
+              <td>
+                <button class="edit-btn" data-id="{{ $user->id }}">Edit</button> 
+              </td>
+              <td>
+              <form action="{{ route('users.destroy', $user) }}" method="POST">
+                @csrf
+                @method('DELETE') 
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+              </form>
+              </td>
+              
             </tr>
           @endforeach
         </tbody>
@@ -285,5 +299,28 @@ function myFunction() {
   }
 
       </script>
+
+
+<script>
+  // ... Other JavaScript code...
+
+  editButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const userId = event.target.dataset.id;
+      const user = document.getElementById(`user-${userId}`);
+      user.isEditing = true; // Mark the user as being edited
+      window.location.href = window.location.href; // Refresh the page
+    });
+  });
+
+  cancelButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const userId = event.target.dataset.id;
+      const user = document.getElementById(`user-${userId}`);
+      user.isEditing = false; // Mark the user as not being edited
+      window.location.href = window.location.href; // Refresh the page
+    });
+  });
+</script>
 </body>
 </html>

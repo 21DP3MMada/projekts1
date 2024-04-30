@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Favorite;
+use App\Models\Review;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,16 @@ class User extends Authenticatable
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->usertype === 'admin'; // Replace 'usertype' with your actual column name storing user type.
     }
 
 }

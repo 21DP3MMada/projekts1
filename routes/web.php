@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\NoteController;
 
 
 Route::get('/', function () {
@@ -21,7 +22,7 @@ Route::get('/testings', [HomeController::class, 'uploadpage'])->middleware(['aut
 
 
 //See Books
-Route::get('/bookpage', [HomeController::class, 'bookpage'])->name('bookpage');
+Route::get('/bookpage', [HomeController::class, 'bookpage'])->name('bookpage')->middleware(['auth']);
 
 //Book Manage Routes
 Route::post('/uploadbook', [HomeController::class, 'store'])->middleware(['auth', 'admin']);
@@ -32,6 +33,10 @@ Route::get('/uploadpage', [HomeController::class, 'show'])->middleware(['auth', 
 //User Manage Routes
 Route::get('/managepage', [UserController::class, 'index'])->name('user.manage')->middleware(['auth', 'admin']);
 Route::put('/users/{user}', [UserController::class, 'updateUserType'])->name('users.updateUserType');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+
 
 
 
@@ -61,6 +66,12 @@ Route::post('/notes', [NoteController::class, 'store']);
 Route::get('/notes/{productId}', [NoteController::class, 'show']);
 Route::put('/notes/{productId}', [NoteController::class, 'store']);
 Route::get('/viewnotes', [NoteController::class, 'index'])->name('viewnotes')->middleware('auth');
+
+
+
+// Reviews Routes
+
+Route::resource('products.reviews', ReviewController::class)->only(['store']); // Resource route for review storage
 
 
 //nez

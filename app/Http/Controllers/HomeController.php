@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -87,6 +88,7 @@ class HomeController extends Controller
     public function show()
     {
         $data = product::all();
+
         return view('product', compact('data'));
     }
 
@@ -105,8 +107,10 @@ class HomeController extends Controller
     public function view($id)
     {
         $data = Product::find($id);
+        $product = Product::findOrFail($id);
+        $reviews = $product->reviews()->latest()->get();
 
-        return view('viewproduct', compact('data'));
+        return view('viewproduct', compact('product', 'reviews', 'data'));
     }
 
     public function destroy($id)
@@ -144,5 +148,7 @@ class HomeController extends Controller
 
         return back()->with('success', 'Notification sent!');
     }
+
+
 
 }

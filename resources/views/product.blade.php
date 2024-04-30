@@ -131,14 +131,40 @@
 }
 
 .item-card {
-    background-color: #1c1a1a;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: white 1px solid;
-    border-radius: 10px;
-    height: 400px;
-}
+      background-color: #1c1a1a;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      border: white 1px solid;
+      border-radius: 10px;
+      height: 400px;
+      position: relative;
+  }
+
+.favorite-btn {
+      position: absolute;
+      background-color: rgb(37, 37, 37);
+      color: white;
+      border: none;
+      top: 0;
+      right: 0;
+      margin-right: 10px;
+      margin-top: 10px;
+      padding: 5px;
+      height: 40px;
+      width: 50px;
+      border-radius: 20px;
+      font-weight: 800;
+      margin-left: 20px;
+      font-size: 16px;
+      text-transform: uppercase;
+      transition: all 0.15;
+    }
+
+    .favorite-btn:hover {
+      background-color: rgb(56, 56, 56);
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -213,9 +239,9 @@
 
       @foreach ($data as $data)
         <div class="item-card">
-          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->title ?? ''}}</h5>
-          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->author ?? ''}}</h5>
-          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">{{$data->category ?? ''}}</h5>
+          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">Title: {{$data->title ?? ''}}</h5>
+          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">Author: {{$data->author ?? ''}}</h5>
+          <h5 style="margin-bottom: 10px; font-size: 1.2em;  color: rgb(255, 255, 255);">Category: {{$data->category ?? ''}}</h5>
           <div style="display: flex; justify-content: space-between;">
             <a class="view-btn" href="{{route('view', $data->id)}}">View</a>
             <a class="download-btn" href="{{route('download', $data->file)}}">Download</a>
@@ -228,6 +254,7 @@
             @csrf
             <button type="submit" class="favorite-btn"><i class='bx bx-star'></i></button>
           </form>
+          <button>edit</button>
           </div>
         </div>
         @endforeach

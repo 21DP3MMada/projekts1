@@ -142,7 +142,7 @@
   margin-right: 30px;
   color: white;
   position: relative;
-  height: 350px;
+  height: min-content;
   border-radius: 20px;
   padding: 10px;
 }
@@ -152,7 +152,7 @@
   width: 50%;
   color: white;
   position: relative;
-  height: 350px;
+  height: min-content;
   border-radius: 20px;
   padding: 10px;
   overflow: hidden;
@@ -228,18 +228,31 @@
       <div class="reviews-div">
         <h2 style="  font-family: sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase;">REVIEWS</h2>
 
-        <div class="review-card">
-          <h3>username</h3>
-          <p>review text</p>
-        </div>
-        <div class="review-card">
-          <h3>username</h3>
-          <p>review text</p>
-        </div>
-        <div class="review-card">
-          <h3>username</h3>
-          <p>review text</p>
-        </div>
+    @auth  
+        <h3>Add your review</h3>
+        <form method="POST" action="{{ route('products.reviews.store', $product->id) }}">
+            @csrf
+            
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="number" name="review_score" min="1" max="5" required> 
+            <textarea name="review_text" required></textarea> 
+            <button type="submit">Submit Review</button>
+        </form>
+    @else
+        <p><a href="{{ route('login') }}">Login</a> to add a review.</p>
+    @endauth
+
+
+    @foreach($reviews as $reviews)
+    <div class="review-card">
+    <p><b>Rating:</b> {{ $reviews->review_score }}</p>
+    <p>{{ $reviews->review_text }}</p>
+    <p><i>Reviewed by {{ $reviews->user->name }}</i></p>
+  </div> 
+@endforeach
+    
+        
+    
         
       </div>
     </div>
