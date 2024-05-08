@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use App\Http\Requests\StoreNoteRequest; // You'll need to create this
+use App\Http\Requests\StoreNoteRequest; 
 use Illuminate\Http\Request;
 use Auth; // For accessing the logged-in user
 
@@ -16,11 +16,10 @@ class NoteController extends Controller
             ->where('user_id', Auth::id())
             ->first();
 
-        if ($note) {
-            // Update the existing note
-            $note->update([
-                'note_text' => $request->note_text
-            ]);
+        if ($note && empty($request->note_text)) {
+            // Delete the note if it exists and the new text is empty
+            $note->delete();
+            return response()->json(['message' => 'Note deleted.']);
         } else {
             // Create a new note
             $note = Note::create([

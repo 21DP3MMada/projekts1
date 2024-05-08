@@ -7,6 +7,7 @@
   <title>View Book</title>
   <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/js/pdfjs/web/viewer.css"/>
   <style>
 
   .container {
@@ -81,6 +82,7 @@
   border: none;
   background-color: rgb(26, 25, 25);
   resize: none; 
+  outline: none;
   @media (max-width: 769px) {
       height: 400px;
     }
@@ -109,7 +111,7 @@
 .metadata {
   display: flex;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 50px;
 
 }
@@ -188,11 +190,84 @@
 
 
 
+.review-form {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+  height: min-content;
+
+}
+
+.review-form > * {
+margin-right: 10px; 
+}
+
+.review-counter {
+  border: white 1px solid;
+  border-radius: 20px;
+  background-color:#1c1a1a; 
+  color: white;
+  font-weight: 800;
+  font-family: sans-serif;
+  font-size: 18px;
+  padding: 5px 10px;
+  appearance: none;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.review-textbox {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  outline: transparent;
+  background-color:#1c1a1a;
+  color: white;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 800;
+  align-items: center;
+  resize: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+
+
+.button-review {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 20px;
+  text-decoration: none; 
+  font-size: 14px; 
+  font-family: sans-serif; 
+  text-transform: uppercase; 
+  font-weight: 800;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.review-label {
+  color: white;
+  font-weight: 800;
+  font-family: sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+
+
   </style>
 </head>
 
 <body>
   @include('navbar')
+
+  <script src="/js/pdfjs/build/pdf.js"></script>
 
   <div class="container">
 
@@ -230,14 +305,22 @@
 
     @auth  
         <h3>Add your review</h3>
-        <form method="POST" action="{{ route('products.reviews.store', $product->id) }}">
+        <form class="review-form" method="POST" action="{{ route('products.reviews.store', $product->id) }}">
             @csrf
             
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="number" name="review_score" min="1" max="5" required> 
-            <textarea name="review_text" required></textarea> 
-            <button type="submit">Submit Review</button>
+            <label class="review-label" for="review_score">Rating:</label>
+            <select class="review-counter" name="review_score" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select> 
+            <textarea class="review-textbox" name="review_text" required></textarea> 
+            <button class="button-review" type="submit">Submit</button>
         </form>
+
     @else
         <p><a href="{{ route('login') }}">Login</a> to add a review.</p>
     @endauth

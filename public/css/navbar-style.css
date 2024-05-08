@@ -124,6 +124,13 @@ body {
   border-radius: 20px;
   border: red 1px solid;
   background-color: rgb(37, 37, 37);
+  color: red;
+}
+
+.dropdown-item-logout:hover {
+  background-color: red;
+  color: white;
+  cursor: pointer;
 }
 
 .main-container {
@@ -144,7 +151,7 @@ body {
   background-color: rgb(37, 37, 37);
   color: white;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 16px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

@@ -22,7 +22,7 @@ class StoreNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'note_text' => 'required|string', // Note text is required
+            'note_text' => 'nullable', // Note text is required
             'product_id' => 'required|integer|exists:products,id' // Ensure valid product exists
         ];
     }

@@ -39,8 +39,8 @@
             <a class="btn-kkas" href="{{'/uploadpage'}}">Manage Books</a>
 
             <a class="btn-kkas" href="{{'/managepage'}}">Manage Users</a>
-        
-            <a class="btn-kkas" href="{{'/favorites'}}">View Favorites</a>
+            
+            <a class="btn-kkas" href="{{'/bookpage'}}">View All Books</a>
 
         </div>
         

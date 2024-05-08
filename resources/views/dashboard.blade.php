@@ -46,8 +46,6 @@
             
             <a class="btn-kkas" href="{{'/bookpage'}}">View All Books</a>
 
-            <a class="btn-kkas" href="{{'/favorites'}}">View Favorites</a>
-
         </div>
         
     </div>

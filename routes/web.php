@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/csstest', function () {
+    return view('csstest');
+});
+
 
 //nez vai vajag
 Route::get('/testings', [HomeController::class, 'uploadpage'])->middleware(['auth', 'admin'])->name('uploadpage');
@@ -22,7 +26,23 @@ Route::get('/testings', [HomeController::class, 'uploadpage'])->middleware(['aut
 
 
 //See Books
-Route::get('/bookpage', [HomeController::class, 'bookpage'])->name('bookpage')->middleware(['auth']);
+Route::get('/bookpage', [HomeController::class, 'bookpage'])
+     ->name('bookpage')
+     ->middleware(['auth']); 
+
+Route::get('/get-genres', function () {
+        // Fetch unique genres from your database (replace with your actual logic)
+        $genres = DB::table('products')->distinct()->pluck('category');
+        return response()->json($genres);
+    });
+
+Route::get('/assets/{filename}', function($filename) {
+    $path = public_path('assets/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
 
 //Book Manage Routes
 Route::post('/uploadbook', [HomeController::class, 'store'])->middleware(['auth', 'admin']);
@@ -74,7 +94,7 @@ Route::get('/viewnotes', [NoteController::class, 'index'])->name('viewnotes')->m
 Route::resource('products.reviews', ReviewController::class)->only(['store']); // Resource route for review storage
 
 
-//nez
+// Peec Logina
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::get('post', [HomeController::class, 'post'])->middleware(['auth', 'admin']);
 

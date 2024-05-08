@@ -108,6 +108,74 @@ div[style*="overflow-x:auto"] {
     padding: 16px;
 }
 
+.remove-btn {
+  color: rgb(255, 0, 0);
+  text-decoration: none;
+  border: rgb(255, 0, 0) 1px solid;
+  border-radius: 20px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+.download-btn {
+  color: white;
+  text-decoration: none;
+  border: white 1px solid;
+  border-radius: 20px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.notif-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 10px 0px 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  outline: transparent;
+  background-color:#1c1a1a;
+  margin-bottom: 12px;
+  color: white;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 800;
+  align-items: center;
+  resize: none;
+}
+
+.send-btn {
+  display: flex;
+  width: 150px;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+  border: white 1px solid;
+  font-family: sans-serif;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 0;
+  height: 40px;
+  margin-left: 10px; 
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
+}
+
+
 </style>
 
 @include('navbar')
@@ -127,7 +195,7 @@ div[style*="overflow-x:auto"] {
     <div class="filter-div"> 
       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..." title="Type in a name">
 
-      <button id="sortButton" onclick="toggleSort()">Filter Name A-Z</button>
+      <button id="sortButton" onclick="toggleSort()">Sort Names A-Z</button>
     </div>
 
     <div style="overflow-x:auto;">
@@ -164,13 +232,13 @@ div[style*="overflow-x:auto"] {
               <td>{{ $user->created_at }}</td>
               <td>{{ $user->updated_at }}</td>
               <td>
-                <button class="edit-btn" data-id="{{ $user->id }}">Edit</button> 
+                <a class="download-btn" data-id="{{ $user->id }}">Edit</a> 
               </td>
               <td>
               <form action="{{ route('users.destroy', $user) }}" method="POST">
                 @csrf
                 @method('DELETE') 
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                <button class="remove-btn" type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
               </form>
               </td>
               
@@ -187,11 +255,15 @@ div[style*="overflow-x:auto"] {
   </div>
 
   <div class="item-container">
-    <form method="POST" action="{{ route('admin.send.notification') }}">
-      @csrf
-      <textarea name="message" placeholder="Enter your notification message"></textarea>
-      <button class="btn-kkas" type="submit">Send</button>
-  </form>
+    <div class="filter-div">
+      <form method="POST" action="{{ route('admin.send.notification') }}">
+        @csrf
+        <div class="filter-div">
+        <textarea class="notif-input" name="message" placeholder="Enter your notification message"></textarea>
+        <button class="send-btn" type="submit">Send</button>
+      </div>
+      </form>
+
   </div>
 
 
@@ -252,12 +324,12 @@ function myFunction() {
     if (!isSorted) {
       filterNamesAtoZ();
       isSorted = true;
-      document.getElementById("sortButton").innerHTML = "Clear Filter";
+      document.getElementById("sortButton").innerHTML = "Clear Sorting";
       document.getElementById("sortButton").style.backgroundColor = "red";
     } else {
       resetSort();
       isSorted = false;
-      document.getElementById("sortButton").innerHTML = "Filter Name A-Z";
+      document.getElementById("sortButton").innerHTML = "Sort Names A-Z";
       document.getElementById("sortButton").style.backgroundColor = "";
     }
   }

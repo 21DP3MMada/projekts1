@@ -46,7 +46,7 @@
             <a id="dropdown-4" class="dropdown-item" onclick="window.location.href='{{'/viewnotes'}}'">{{ __('Notes') }}</a> 
             <a id="dropdown-2" class="dropdown-item" onclick="window.location.href='{{'/profile'}}'">{{ __('Profile') }}</a> 
 
-            <a style="color: red;" class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <a class="dropdown-item-logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> 
                 @csrf 
             </form>

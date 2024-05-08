@@ -8,6 +8,9 @@
   <title>Favorites</title>
   <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf_viewer.min.css" integrity="sha512-kQO2X6Ls8Fs1i/pPQaRWkT40U/SELsldCgg4njL8zT0q4AfABNuS+xuy+69PFT21dow9T6OiJF43jan67GX+Kw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
 
 
@@ -42,6 +45,7 @@
 
   
   .remove-btn {
+    display: none;
     position: absolute;
     top: 0;
     right: 0;
@@ -80,36 +84,75 @@
   }
 
   .item-container {
-    background-color: rgb(37, 37, 37);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    display: grid;
-    grid-gap: 16px;
-    padding: 16px;
-    
-    @media (min-width: 768px) {
-    	grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (min-width: 960px) {
-    	grid-template-columns: repeat(3, 1fr);
-    }
-    
-    @media (min-width: 1200px) {
-    	grid-template-columns: repeat(4, 1fr);
-    }
+      background-color: rgb(37, 37, 37);
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+      grid-gap: 20px; 
+      justify-content: start; 
+      padding: 20px; 
+  }
+
+  @media (max-width: 600px) {
+  .item-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 .item-card {
-      background-color: #1c1a1a;
+  background-color: #1c1a1a;
       color: white;
-      padding: 10px;
       border-radius: 10px;
       border: white 1px solid;
-      border-radius: 10px;
-      height: 400px;
+      overflow: hidden;
       position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: 0.15s;
   }
+
+.item-card:hover {
+  transform: scale(1.02); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.button-container {
+      display: flex;
+      bottom: 0;
+      left: 0;
+      margin-bottom: 10px;
+      margin-left: 10px;
+  }
+
+  .thumbnail img {
+  max-width: 100%; 
+  height: auto;  
+  width: 100%; 
+}
+
+.info-container {
+  display: none; 
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.9); 
+  border-radius: 0 0 10px 10px; 
+  
+}
+
+.info-container {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.item-card:hover .info-container  {
+  display: block; 
+}
+
+.item-card:hover .remove-btn {
+  display: block;
+}
   </style>
 
 </head>
@@ -144,13 +187,19 @@
       @if ($favorites->count() > 0) 
       @foreach ($favorites as $favorite)
           <div class="item-card">
+            <div class="thumbnail" data-pdfpath="/assets/{{ $favorite->product->file }}" ></div>
+            <div class="info-container">
               <h2>{{ $favorite->product->title }}</h2> 
               <p>{{ $favorite->product->author }}</p>
               <p>{{ $favorite->product->category }}</p>
+              <div class="button-container" style="display: flex; justify-content: space-between;">
+                <a class="view-btn" href="{{route('view', $favorite->product->id)}}">View</a>
+              </div>
+            </div>
               <form action="{{ route('favorites.delete', $favorite->product_id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="remove-btn" style="margin-top: 5px; "><i class='bx bx-x' ></i></button>
+                  <button type="submit" class="remove-btn" style="margin-top: 5px; "><i class='bx bx-trash'></i></button>
               </form>
           </div>
       @endforeach
@@ -162,6 +211,47 @@
     </div>
 
   </div>
+
+  <script type="module">
+    //Book Thumbnails
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+    function generateThumbnail(pdfPath) {
+      pdfjsLib.getDocument(pdfPath).promise.then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          var scale = 1; 
+          var viewport = page.getViewport({ scale: scale });
+          var canvas = document.createElement('canvas');
+          var context = canvas.getContext('2d');
+  
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+  
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+  
+          page.render(renderContext).promise.then(function() {
+            
+            var thumbnailImg = document.createElement('img');
+            thumbnailImg.src = canvas.toDataURL(); 
+
+            var thumbnailDiv = document.querySelector('.thumbnail[data-pdfpath="' + pdfPath + '"]');
+            thumbnailDiv.innerHTML = ''; 
+            thumbnailDiv.appendChild(thumbnailImg); 
+          });
+        });
+      }).catch(function(error) {
+          console.error("Error loading PDF:", error);
+      });
+    }
+  
+    
+    document.querySelectorAll('.thumbnail[data-pdfpath]').forEach(function(thumbnailDiv) {
+      var pdfPath = thumbnailDiv.dataset.pdfpath;
+      generateThumbnail(pdfPath);
+    });
+  </script>
   
 </body>
 </html>
