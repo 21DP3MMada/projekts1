@@ -119,7 +119,6 @@ function markAsRead(buttonElement) {
       }
   });
 
-  // On page load, store the current URL (only if different from previous)
   if (!localStorage.getItem('previousURL') || localStorage.getItem('previousURL') !== window.location.href) { 
       localStorage.setItem('previousURL', window.location.href);
   }

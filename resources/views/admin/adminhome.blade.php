@@ -1,7 +1,6 @@
 @include('navbar')
 
     <style>
-
         .item-container {
             background-color: rgb(37, 37, 37);
             border-bottom-right-radius: 10px;
@@ -36,11 +35,11 @@
         <div class="item-container">
 
             
-            <a class="btn-kkas" href="{{'/uploadpage'}}">Manage Books</a>
+            <a class="btn-dashboard" href="{{'/uploadpage'}}"><i id="dashboardIcon" class='bx bx-cog' ></i> Manage Books</a>
 
-            <a class="btn-kkas" href="{{'/managepage'}}">Manage Users</a>
+            <a class="btn-dashboard" href="{{'/managepage'}}"><i id="dashboardIcon" class='bx bx-user'></i> Manage Users</a>
             
-            <a class="btn-kkas" href="{{'/bookpage'}}">View All Books</a>
+            <a class="btn-dashboard" href="{{'/bookpage'}}"><i id="dashboardIcon" class='bx bx-book'></i> View All Books</a>
 
         </div>
         

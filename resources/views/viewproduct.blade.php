@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,286 +6,74 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>View Book</title>
   <link rel="stylesheet" href="{{ asset('css/navbar-style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/pdf-view.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/js/pdfjs/web/viewer.css"/>
+
   <style>
-
-  .container {
-    display: flex;
-    padding: 10px 50px;
-    width: 100%;
-    @media (max-width: 769px) {
-      padding: 0 10px;
-      flex-wrap: wrap;
-      margin-bottom: 50px;
-
-    }
-  }
-
-  .pdf-viewer {
-    width: 60%;
-    height: 750px;
-    border: 1px solid #ddd;
-    @media (max-width: 769px) {
-      width: 100%;
-
-    }
-    }
-
-  .notes-div {
-    background-color: rgb(26, 25, 25);
-    width: 40%;
-    margin-left: 20px;
+.fab {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px;
+    background-color: #1d1d1d; 
+    color: white;
     border: none;
-    border-radius: 10px;
-    @media (max-width: 769px) {
-      width: 100%;
-      margin-top: 20px;
-      margin-left: 0px;
-    }
-
-  }
-
-  .notes-name {
-    background-color: rgb(37, 37, 37);
-    height: 7%;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    @media (max-width: 769px) {
-      height: 46px;
-    }
-  }
-
-.notes-p {
-  display: flex;
-  padding-left: 20px;
-  padding-top: 15px;
-  color: white;
-  font-family: sans-serif;
-  font-weight: 800;
-  font-size: 16px;
-  text-transform: uppercase;
-  @media (max-width: 769px) {
-      padding-top: 10px;
-    }
-}
-
-#note-area {
-  color: white;
-  padding: 20px;
-  font-family: sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  text-transform: uppercase;
-  height: 93%;
-  width: 100%;
-  border: none;
-  background-color: rgb(26, 25, 25);
-  resize: none; 
-  outline: none;
-  @media (max-width: 769px) {
-      height: 400px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-  button {
-    line-height: 12px;
-  }
-
-}
-
-.container-under-pdf-view {
-  padding: 10px 50px;
-  position: relative;
-  @media (max-width: 769px) {
-    padding: 0 10px;
-  }
-}
-
-.under-pdf {
-  
-  display: flex;
-}
-
-.metadata {
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-  height: 50px;
-
-}
-
-.metadata h2 {
-  font-weight: 800;
-  color: white;
-  font-family: sans-serif;
-}
-
-.metadata button {
-  display: inline-block;
-  border: none;
-  background-color: rgb(37, 37, 37);
-  color: white;
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 30px;
-  font-weight: 800;
-  font-family: sans-serif;
-  height: 38px;
-  font-size: 12px;
-  margin-left: auto;
-}
-
-.about-pdf {
-  background-color: rgb(37, 37, 37);
-  width: 50%;
-  margin-right: 30px;
-  color: white;
-  position: relative;
-  height: min-content;
-  border-radius: 20px;
-  padding: 10px;
-}
-
-.reviews-div {
-  background-color: rgb(37, 37, 37);
-  width: 50%;
-  color: white;
-  position: relative;
-  height: min-content;
-  border-radius: 20px;
-  padding: 10px;
-  overflow: hidden;
-}
-
-.review-card {
-  background-color: #1c1a1a;
-  padding: 20px;
-  border-radius: 20px;
-  margin-top: 10px;
-}
-
-.item-container {
-    background-color: rgb(37, 37, 37);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    display: grid;
-    grid-gap: 16px;
-    padding: 16px;
-    
-    @media (min-width: 768px) {
-    	grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (min-width: 960px) {
-    	grid-template-columns: repeat(3, 1fr);
-    }
-    
-    @media (min-width: 1200px) {
-    	grid-template-columns: repeat(4, 1fr);
-    }
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    z-index: 10; 
 }
 
 
+/* Hide the toggle button by default */
+#toggle-button {
+            display: none;
+        }
 
-.review-form {
-  display: flex;
-  align-items: center;
-  margin: 10px 0px;
-  height: min-content;
-
-}
-
-.review-form > * {
-margin-right: 10px; 
-}
-
-.review-counter {
-  border: white 1px solid;
-  border-radius: 20px;
-  background-color:#1c1a1a; 
-  color: white;
-  font-weight: 800;
-  font-family: sans-serif;
-  font-size: 18px;
-  padding: 5px 10px;
-  appearance: none;
-  flex: 0 0 auto;
-  cursor: pointer;
-}
-
-.review-textbox {
-  width: 80%;
-  padding: 10px;
-  border: none;
-  border-radius: 20px;
-  font-size: 12px;
-  outline: transparent;
-  background-color:#1c1a1a;
-  color: white;
-  text-transform: uppercase;
-  font-family: sans-serif;
-  font-weight: 800;
-  align-items: center;
-  resize: none;
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-
-
-.button-review {
-  background-color: rgb(255, 255, 255);
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 10px;
-  border-radius: 20px;
-  text-decoration: none; 
-  font-size: 14px; 
-  font-family: sans-serif; 
-  text-transform: uppercase; 
-  font-weight: 800;
-  cursor: pointer;
-  flex: 0 0 auto;
-}
-
-.review-label {
-  color: white;
-  font-weight: 800;
-  font-family: sans-serif;
-  font-size: 18px;
-  text-transform: uppercase;
-}
-
-
+        /* Show the toggle button only on screens 768px wide or less */
+        @media (max-width: 768px) {
+            #toggle-button {
+                display: block;
+                font-size: 20px;
+                position: fixed;
+    bottom: 20px; 
+    right: 20px;
+    background-color: #1d1d1d; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    z-index: 10; 
+            }
+        }
 
   </style>
+
 </head>
 
 <body>
   @include('navbar')
 
-  <script src="/js/pdfjs/build/pdf.js"></script>
-
   <div class="container">
+      <div id="pdfViewer" class="pdf-viewer"></div>
 
-      <iframe style="border-radius:10px; " class="pdf-viewer" src="/assets/{{$data->file}}">
-      </iframe>
+    <button id="toggle-button" class="fab">
+      <i class="toggle-icon bx bx-notepad"></i>  
+  </button>
 
-      <div class="notes-div">
+      <div id="notes-div" class="notes-div">
         <div class="notes-name">
           <p class="notes-p">notes</p>
         </div>
         <textarea id="note-area"  placeholder="Type anything here...">
         </textarea>
       </div>
-      
-
   </div>
 
-  <section class="container-under-pdf-view">
+  <section id="underPdf" class="container-under-pdf-view">
 
     <div class="metadata">
       <h2>{{$data->title}}</h2>
@@ -294,13 +82,13 @@ margin-right: 10px;
 
     <div class="under-pdf">
 
-      <div style="color: white;" class="about-pdf">
+      <div style="color: white;" id="about-pdf" class="about-pdf">
         <h2 style="  font-family: sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase; margin-bottom: 20px;">ABOUT BOOK</h2>
         <p>TITLE - <b>{{$data->title}}</b></p>
         <p>AUTHOR - <b>{{$data->author}}</b></p>
         <p>CATEGORY - <b>{{$data->category}}</b></p>
       </div>
-      <div class="reviews-div">
+      <div id="reviews-div" class="reviews-div">
         <h2 style="  font-family: sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase;">REVIEWS</h2>
 
     @auth  
@@ -325,16 +113,13 @@ margin-right: 10px;
         <p><a href="{{ route('login') }}">Login</a> to add a review.</p>
     @endauth
 
-
     @foreach($reviews as $reviews)
-    <div class="review-card">
-    <p><b>Rating:</b> {{ $reviews->review_score }}</p>
-    <p>{{ $reviews->review_text }}</p>
-    <p><i>Reviewed by {{ $reviews->user->name }}</i></p>
-  </div> 
-@endforeach
-    
-        
+      <div class="review-card">
+        <p><b>Rating:</b> {{ $reviews->review_score }}</p>
+        <p>{{ $reviews->review_text }}</p>
+        <p><i>Reviewed by {{ $reviews->user->name }}</i></p>
+      </div> 
+    @endforeach
     
         
       </div>
@@ -343,18 +128,76 @@ margin-right: 10px;
   </section>
 
   <script>
+const notesButton = document.getElementById('toggle-button');
+const toggleIcon = notesButton.querySelector('.toggle-icon');
+
+let isAtNotesSection = false;
+
+notesButton.addEventListener('click', () => {
+    const notesSection = document.getElementById('notes-div');
+
+    if (isAtNotesSection) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        toggleIcon.classList.replace('bx-book', 'bx-notepad'); // Change icon to notepad
+    } else {
+        notesSection.scrollIntoView({ behavior: 'smooth' });
+        toggleIcon.classList.replace('bx-notepad', 'bx-book'); // Change icon to book
+    }
+
+    isAtNotesSection = !isAtNotesSection;
+});
+  </script>
+
+
+  <script type="module">
+    import { getDocument, GlobalWorkerOptions } from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
+
+    // (Optional) Configure worker path if needed
+    GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs'; 
+
+    const pdfViewer = document.getElementById('pdfViewer');
+
+    async function loadPdf() {
+        const pdfPath = "/assets/{{ $data->file }}";
+        const loadingTask = getDocument(pdfPath); // Use getDocument instead of PDFJS.getDocument
+        const pdf = await loadingTask.promise;
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.0 });
+
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderTask = page.render({
+                canvasContext: context,
+                viewport: viewport
+            });
+            await renderTask.promise;
+            pdfViewer.appendChild(canvas);
+        }
+    }
+    
+    loadPdf().catch(error => {
+        console.error("Error loading PDF:", error); // Add error handling
+    });
+</script>
+
+
+
+  <script>
     $(document).ready(function() {
       const productId = {{ $data->id }};
       let saveTimeout;
   
-      // Load the existing note
       $.get(`/notes/${productId}`, function(note) {
         if (note) {
           $('#note-area').val(note.note_text);
         }
       });
   
-      // Save (or update) the note with a slight delay
       $('#note-area').on('input', function() {
         clearTimeout(saveTimeout); 
   
@@ -367,7 +210,7 @@ margin-right: 10px;
       function saveOrUpdateNote(noteText, productId) {
         $.ajax({
           url: `/notes/${productId}`,
-          method: 'PUT', // Use 'PUT' for updating
+          method: 'PUT',
           data: {
             note_text: noteText,
             product_id: productId,
@@ -382,7 +225,5 @@ margin-right: 10px;
   </script>
   
 
-
-  
 </body>
 </html>

@@ -32,7 +32,6 @@
 
         }
         .navbar {
-            position: sticky;
             top: 0;
             left: 0;
             width: 100%;
@@ -123,10 +122,11 @@
         }
 
 
-        @media (max-width: 850px) {
+        @media (max-width: 769px) {
 
             .navbar {
-                padding: 10px 7.5%;
+                padding: 0 10px;
+                padding-top: 10px;
                 flex-direction: column;
                 display: flex;
             }
@@ -152,13 +152,10 @@
                 margin-left: 0;
             }
 
-
             .navbar button {
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                
-                
             }
         }
 
@@ -177,23 +174,13 @@
         }
 
         .item-container2 {
-      background-color: rgb(37, 37, 37);
-      border-radius: 10px;
-      display: grid;
-      grid-gap: 16px;
-      padding: 16px;
-      
-      @media (min-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      @media (min-width: 960px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      @media (min-width: 1200px) {
-        grid-template-columns: repeat(4, 1fr);
-      }
+            background-color: rgb(37, 37, 37);
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            grid-gap: 20px; 
+            justify-content: start; 
+            padding: 20px; 
   }
 
         .main-container {
@@ -207,18 +194,20 @@
 
             @media (max-width: 769px) {
                 padding: 0 10px;
+                margin-top: 12px;
             }
         }
 
     .item-card {
         background-color: #1c1a1a;
-        color: white;
-        padding: 10px;
-        border-radius: 10px;
-        border: white 1px solid;
-        border-radius: 10px;
-        height: 500px;
-        position: relative;
+      color: white;
+      border-radius: 10px;
+      border: white 1px solid;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: 0.15s;
+      height: 400px;
     }
         </style>
 
@@ -245,11 +234,7 @@
 
         <div class="main-container">
             <div class="item-container">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus in laboriosam voluptatibus beatae esse. Aperiam, facilis veniam. Soluta deserunt est expedita praesentium tenetur consectetur quisquam consequuntur amet! Soluta, corrupti quam?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus in laboriosam voluptatibus beatae esse. Aperiam, facilis veniam. Soluta deserunt est expedita praesentium tenetur consectetur quisquam consequuntur amet! Soluta, corrupti quam?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus in laboriosam voluptatibus beatae esse. Aperiam, facilis veniam. Soluta deserunt est expedita praesentium tenetur consectetur quisquam consequuntur amet! Soluta, corrupti quam?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus in laboriosam voluptatibus beatae esse. Aperiam, facilis veniam. Soluta deserunt est expedita praesentium tenetur consectetur quisquam consequuntur amet! Soluta, corrupti quam?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus in laboriosam voluptatibus beatae esse. Aperiam, facilis veniam. Soluta deserunt est expedita praesentium tenetur consectetur quisquam consequuntur amet! Soluta, corrupti quam?</p>
+                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
             </div>
 
             <div style="margin-top: 20px;" class="item-container2">

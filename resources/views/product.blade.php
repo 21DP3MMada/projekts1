@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,6 +13,7 @@
   <style>
   .upload-div {
     display: block;
+    width: 400px;
   }
 
   .upload-text {
@@ -129,6 +130,16 @@
   }
 }
 
+.item-container3 {
+      background-color: rgb(37, 37, 37);
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      display: flex;
+      grid-gap: 20px; 
+      justify-content: start; 
+      padding: 20px; 
+  }
+
 .item-card {
   background-color: #1c1a1a;
       color: white;
@@ -218,6 +229,7 @@
 .pdf-item:hover .favorite-btn {
   display: block; 
 }
+
   </style>
 </head>
 
@@ -251,7 +263,7 @@
     <div class="text-container">
       <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Upload Book</h1>
     </div>
-    <div class="item-container">
+    <div class="item-container3">
 
       <div class="upload-div">
     
@@ -266,14 +278,14 @@
         </div>
         <div class="form-group" style="margin-bottom: 18px;">
           <select class="form-control" name="category" style="height: 42px; color:gray;">
-              <option value="">Select Category</option>
-              <option value="Business/Career">Business/Career</option>
-              <option value="Money/Investments">Money/Investments</option>
-              <option value="Sales/Negotiation">Sales/Negotiation</option>
-              <option value="Happieness">Happieness</option>
-              <option value="Productivity">Productivity</option>
-              <option value="Health">Health</option>
-              <option value="Psychology">Psychology</option>
+              <option  value="">Select Category</option>
+              <option  value="Business/Career">Business/Career</option>
+              <option  value="Money/Investments">Money/Investments</option>
+              <option  value="Sales/Negotiation">Sales/Negotiation</option>
+              <option  value="Happieness">Happieness</option>
+              <option  value="Productivity">Productivity</option>
+              <option  value="Health">Health</option>
+              <option  value="Psychology">Psychology</option>
           </select>
       </div>
 
