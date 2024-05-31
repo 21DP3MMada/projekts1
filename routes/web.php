@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
@@ -15,6 +14,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/', [HomeController::class, 'carousel']); 
+
+
 Route::get('/csstest', function () {
     return view('csstest');
 });
@@ -22,7 +25,6 @@ Route::get('/csstest', function () {
 
 //nez vai vajag
 Route::get('/testings', [HomeController::class, 'uploadpage'])->middleware(['auth', 'admin'])->name('uploadpage');
-
 
 
 //See Books
@@ -57,9 +59,6 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 
 
 
-
-
-
 // File Routes
 Route::get('/view/{id}', [HomeController::class, 'view'])->name('view')->middleware(['auth']);
 Route::get('/download/{file}', [HomeController::class, 'download'])->name('download');
@@ -90,9 +89,7 @@ Route::get('/viewnotes', [NoteController::class, 'index'])->name('viewnotes')->m
 
 
 // Reviews Routes
-
-Route::resource('products.reviews', ReviewController::class)->only(['store']); // Resource route for review storage
-
+Route::resource('products.reviews', ReviewController::class)->only(['store', 'destroy']);
 
 // Peec Logina
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');

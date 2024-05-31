@@ -127,15 +127,15 @@
 
   #dropdown-btn {
     float: right;
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     background: white;
     text-align: center;
     color: black;
-    line-height: 30px;
+    line-height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 24px;
     margin-left: 20px;
   }
 
@@ -156,17 +156,23 @@
 
 .goto-note-btn {
     float: right;
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     background: white;
     text-align: center;
     color: black;
-    line-height: 34px;
+    font-size: 24px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.25rem;
 }
 
+.goto-note-btn i {
+  padding-top: 8px;
+}
+
+#dropdown-4 {
+  background-color: rgb(56, 56, 56);
+}
 
 </style>
 
@@ -207,7 +213,7 @@
  
         <div class="div-control">
             <div class="note-header" data-note-id="{{ $note->id }}">
-                <b>Book:</b> {{ $note->product->title }} <br>
+                <b style="font-size:18px">Book: {{ $note->product->title }}</b> by <b style="font-size:18px">{{$note->product->author}} </b><br>
                 <span class="last-updated" data-timestamp="{{ $note->updated_at->timestamp }}">
                   {{-- dynamic text  --}}
               </span>
@@ -230,7 +236,7 @@
 
     @endforeach
   @else
-      <p>You don't have any notes yet.</p>
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: 800; text-transform: uppercase; color: white;">You don't have any notes yet.</p>
   @endif
 
 

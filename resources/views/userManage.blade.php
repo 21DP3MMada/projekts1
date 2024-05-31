@@ -208,7 +208,7 @@ div[style*="overflow-x:auto"] {
                 <th>User Type</th>
                 <th>Created At</th>
                 <th>Updated At</th>
-                <th>Edit</th>
+                <!--<th>Edit</th>-->
                 <th>Delete</th>
                 
             </tr>
@@ -231,9 +231,9 @@ div[style*="overflow-x:auto"] {
               </td>
               <td>{{ $user->created_at }}</td>
               <td>{{ $user->updated_at }}</td>
-              <td>
+              <!--<td>
                 <a class="download-btn" data-id="{{ $user->id }}">Edit</a> 
-              </td>
+              </td>-->
               <td>
               <form action="{{ route('users.destroy', $user) }}" method="POST">
                 @csrf

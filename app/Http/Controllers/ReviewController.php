@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Review;
@@ -69,11 +69,17 @@ class ReviewController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+
+    public function destroy(Product $product, Review $review)
     {
-        //
+        // Ensure the user is the owner of the review
+        if ($review->user_id != Auth::id()) {
+            return back()->with('error', 'You are not authorized to delete this review.');
+        }
+
+        $review->delete();
+
+        return back()->with('success', 'Review deleted successfully!');
     }
 }

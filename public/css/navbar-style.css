@@ -222,11 +222,14 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     min-width: 250px;
+    max-width: 250px;
     padding: 10px;
     font-family: sans-serif;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
+    word-wrap: break-word;
+    z-index: 1;
 }
 
 .notification-item {
@@ -237,6 +240,14 @@ body {
     align-items: center;
     padding: 10px;
     justify-content: space-between;
+    word-wrap: break-word;
+}
+
+.notification-text {
+  flex: 1; 
+  white-space: normal; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 
 .notification-item.read {
@@ -248,8 +259,8 @@ body {
 }
 
 .mark-read {
-    background-color: #1c1a1a; 
-    color: white;
+    background-color: #ffffff; 
+    color: rgb(0, 0, 0);
     border: none;
     padding: 8px 8px;
     border-radius: 20px;

@@ -6,224 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>All Books</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{{ asset('css/allbooks-style.css') }}">
   <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf_viewer.min.css" integrity="sha512-kQO2X6Ls8Fs1i/pPQaRWkT40U/SELsldCgg4njL8zT0q4AfABNuS+xuy+69PFT21dow9T6OiJF43jan67GX+Kw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <style>
-    .item-container {
-      background-color: rgb(37, 37, 37);
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-      grid-gap: 20px; 
-      justify-content: start; 
-      padding: 20px; 
-  }
-  
-  .pdf-item {
-      background-color: #1c1a1a;
-      color: white;
-      border-radius: 10px;
-      border: white 1px solid;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: 0.15s;
-  }
-
-  .pdf-item:hover {
-    transform: scale(1.02); 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
-}
-
-  @media (max-width: 600px) {
-  .item-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-    .download-btn {
-      margin-left: 10px;
-      display: none;
-      color: white;
-      text-decoration: none;
-      border: white 1px solid;
-      border-radius: 20px;
-      padding: 10px;
-      font-family: sans-serif;
-      font-weight: 800;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-    
-    .view-btn {
-      display: inline-flex;
-      border: 1px solid rgb(0, 0, 0);
-      background-color: rgb(255, 255, 255);
-      color: rgb(0, 0, 0);
-      padding: 10px;
-      border-radius: 20px;
-      font-weight: 800;
-      font-size: 12px;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    .favorite-btn {
-      display: none;
-      position: absolute;
-      background-color: rgb(37, 37, 37);
-      color: white;
-      border: none;
-      top: 0;
-      right: 0;
-      margin-right: 10px;
-      margin-top: 10px;
-      padding: 5px;
-      height: 40px;
-      width: 50px;
-      border-radius: 20px;
-      font-weight: 800;
-      margin-left: 20px;
-      font-size: 16px;
-      text-transform: uppercase;
-      transition: all 0.15;
-    }
-
-    .favorite-btn:hover {
-      background-color: rgb(56, 56, 56);
-      cursor: pointer;
-    }
-
-    .button-container {
-      display: flex;
-      bottom: 0;
-      left: 0;
-      margin-bottom: 10px;
-      margin-left: 10px;
-  }
-  
-  .thumbnail img {
-  max-width: 100%; 
-  height: auto;  
-  width: 100%; 
-}
-
-.info-container {
-  display: none; 
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.9); 
-  border-radius: 0 0 10px 10px; 
-  
-}
-
-.info-container {
-    transition: opacity 0.3s ease-in-out;
-}
-
-.pdf-item:hover .info-container  {
-  display: block; 
-}
-
-.pdf-item:hover .favorite-btn {
-  display: block; 
-}
-
-.genre-filter-container {
-    margin-left: 20px; 
-}
-
-.genre-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-btn {
-    background-color: #1c1a1a; 
-    color: white;
-    padding: 12px 15px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-family: sans-serif;
-    font-weight: 800;
-    
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #1c1a1a;
-    min-width: 160px;
-    max-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1; 
-    text-decoration: none;
-    border-radius: 10px;
-}
-
-.filter-list {
-  text-decoration: none;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-
-.filter-list:hover {
-  background-color: rgb(56, 56, 56);
-}
-
-.filter-label {
-  font-weight: 800;
-  font-family: sans-serif;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-
-.dropdown-content input[type="checkbox"] {
-    margin-right: 5px; 
-    text-decoration: none;
-}
-
-.genre-dropdown:hover .dropdown-content {
-    display: block;
-    text-decoration: none;
-}
-
-
-.search-filter-container {
-    display: flex;
-    align-items: center; 
-}
-
-#search-input {
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: none;
-  border-radius: 20px;
-  font-size: 12px;
-  outline: transparent;
-  background-color:#1c1a1a;
-  margin-bottom: 12px;
-  color: white;
-  text-transform: uppercase;
-  font-family: sans-serif;
-  font-weight: 800;
-  align-items: center;
-  margin-top: 10px;
-}
-
-    </style>
 </head>
 
 <body>
@@ -253,7 +39,7 @@
         <div class="genre-dropdown">
             <button class="dropdown-btn">Filter by Genres</button>
             <ul class="dropdown-content">
-                <!-- Genre list items will be added here -->
+                <!-- zanri -->
             </ul>
         </div>
     </div>
@@ -266,10 +52,10 @@
       <div class="pdf-item" data-genre="{{ $data->category }}">
         <div class="thumbnail" data-pdfpath="/assets/{{ $data->file }}" ></div>
         <div class="info-container"> 
-          <h5 style="margin-bottom: 10px; font-size: 20px;  color: rgb(255, 255, 255);">{{$data->title ?? ''}}</h5>
-          <h5 style="margin-bottom: 10px; font-size: 16px;  color: rgb(255, 255, 255);">{{$data->author ?? ''}}</h5>
-          <h5 style="margin-bottom: 10px; font-size: 14px;  color: rgb(255, 255, 255);">{{$data->category ?? ''}}</h5>
-          <div class="button-container" style="display: flex; justify-content: space-between;">
+          <h5 class="info-title" >{{$data->title ?? ''}}</h5>
+          <h5 class="info-author" >{{$data->author ?? ''}}</h5>
+          <h5 class="info-category" >{{$data->category ?? ''}}</h5>
+          <div class="button-container">
             <a class="view-btn" href="{{route('view', $data->id)}}">View</a>
             <a class="download-btn" href="{{route('download', $data->file)}}">Download</a>
           </div>

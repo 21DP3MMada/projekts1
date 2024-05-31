@@ -30,7 +30,7 @@
     @else
       @foreach($unreadNotifications as $notification)
           <div class="notification-item">
-              {{ $notification->message }}
+            <div class="notification-text">{{ $notification->message }}</div>
               <button class="mark-read" data-id="{{ $notification->id }}" onclick="markAsRead(this)"><i class='bx bx-check'></i></button>
           </div>
       @endforeach

@@ -106,6 +106,16 @@ class HomeController extends Controller
         return view('allBooks', compact('data'));
     }
 
+    // HomeController.php
+
+public function carousel(Request $request)
+{
+    $data = product::all();
+
+    return view('welcome', compact('data')); 
+}
+
+
 
     public function download(Request $request, $file)
     {

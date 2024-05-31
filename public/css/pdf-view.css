@@ -14,20 +14,11 @@
   max-width: 900px;
 }
 
-#toolbar {
-  background-color: #f0f0f0; 
-  padding: 10px;
-  position: absolute; 
-  top: 0;
-  left: 0;
-  width: 100%; 
-  z-index: 1; 
-}
-
 .pdf-viewer {
-  height: 900px; 
+  height: 800px; 
+  overflow: auto;
   overflow-y: auto; 
-  width: 60%; 
+  width: 55%; 
   margin: auto 0;   
   border: 1px solid #ddd;
   @media (max-width: 769px) {
@@ -36,13 +27,37 @@
   }
 }
 
+.textLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  line-height: 1;
+}
+
 .pdf-viewer canvas {
   width: 100%; 
 }
 
+.toolbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Optional spacing */
+}
+
+.toolbar button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
 .notes-div {
   background-color: rgb(26, 25, 25);
-  width: 40%;
+  width: 60%;
   margin-left: 20px;
   border: none;
   border-radius: 10px;
@@ -122,8 +137,8 @@ button {
 .metadata {
   display: flex;
   width: 100%;
-  margin-bottom: 10px;
-  height: 50px;
+  margin-bottom: 20px;
+  height: max-content;
   
 }
 
@@ -149,39 +164,70 @@ button {
   margin-left: auto;
 }
 
-.about-pdf {
-  background-color: rgb(37, 37, 37);
-  width: 50%;
-  margin-right: 30px;
-  color: white;
-  position: relative;
-  height: min-content;
-  border-radius: 20px;
-  padding: 10px;
-  @media (max-width: 769px) {
-    padding: 0 10px;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-
-}
-
 .reviews-div {
   background-color: rgb(37, 37, 37);
-  width: 50%;
+  width: 100%;
   color: white;
   position: relative;
   height: min-content;
   border-radius: 20px;
   padding: 10px;
   overflow: hidden;
+  margin-bottom: 50px;
   @media (max-width: 769px) {
-    padding: 0 10px;
+    padding: 10 10px;
     flex-wrap: wrap;
     width: 100%;
   }
+}
+
+.reviews-header {
+  font-size: 26px;
+  font-family: sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+
+/* Star Rating Styles */
+.rating-container {
+  display: block;
+}
+
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rating-container .star-rating { 
+  direction: rtl;
+}
+
+.rating-container .star-rating > * { 
+  direction: rtr;
+}
+
+.star {
+  font-size: 32px;
+  color: #ccc; 
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.filled {
+  color: gold;
+}
+
+.star:hover,
+.star:hover ~ .star,
+input:checked ~ .star {
+  color: gold; 
+}
+
+.review-card .star:hover,
+.review-card .star:hover ~ .star {
+  color: #ccc;
+  cursor:default;
 }
 
 .review-card {
@@ -191,33 +237,16 @@ border-radius: 20px;
 margin-top: 10px;
 }
 
-.item-container {
-  background-color: rgb(37, 37, 37);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  display: grid;
-  grid-gap: 16px;
-  padding: 16px;
-  
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (min-width: 960px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 .review-form {
-display: flex;
+display: block;
 align-items: center;
 margin: 10px 0px;
 height: min-content;
+padding-bottom: 10px;
+}
 
+.review-input-button {
+  display: flex;
 }
 
 .review-form > * {
@@ -244,6 +273,7 @@ padding: 10px;
 border: none;
 border-radius: 20px;
 font-size: 12px;
+margin-right: 16px;
 outline: transparent;
 background-color:#1c1a1a;
 color: white;
@@ -251,12 +281,18 @@ text-transform: uppercase;
 font-family: sans-serif;
 font-weight: 800;
 align-items: center;
-resize: none;
-flex: 1 1 auto;
-overflow-y: auto;
+resize:inherit;
+flex: 1 1 auto; 
+height: 40px;
+overflow-y:auto;
 }
 
-
+.reviewed-by {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
 
 .button-review {
 background-color: rgb(255, 255, 255);
@@ -271,6 +307,40 @@ text-transform: uppercase;
 font-weight: 800;
 cursor: pointer;
 flex: 0 0 auto;
+}
+
+.button-delete {
+  background-color: #ff4d4d; /* Red background */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 20px; 
+  text-decoration: none; 
+  font-size: 14px; 
+  font-family: sans-serif; 
+  text-transform: uppercase; 
+  font-weight: 800;
+}
+
+.button-filter {
+  background-color: #1a1a1a;
+  border: 1px solid white;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.button-filter.active {
+  background-color: #007bff;
+  color: #fff;
 }
 
 .review-label {
