@@ -135,7 +135,7 @@
     line-height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
     margin-left: 20px;
   }
 
@@ -161,7 +161,7 @@
     background: white;
     text-align: center;
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     border-radius: 50%;
     cursor: pointer;
 }
