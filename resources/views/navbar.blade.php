@@ -108,18 +108,27 @@ function markAsRead(buttonElement) {
 
 </script>
 
-
 <script>
   document.getElementById('back-btn').addEventListener('click', function() {
-      if (localStorage.getItem('previousURL') && localStorage.getItem('previousURL') !== window.location.href) { 
-          window.location.href = localStorage.getItem('previousURL');
-          localStorage.removeItem('previousURL');
+      const previousURL = localStorage.getItem('previousURL');
+      const currentURL = window.location.href;
+
+      if (previousURL && previousURL !== currentURL) {
+          window.location.href = previousURL;
       } else {
-          window.location.href = '{{ route('home') }}'; 
+          window.location.href = '{{ route('home') }}';
       }
   });
 
-  if (!localStorage.getItem('previousURL') || localStorage.getItem('previousURL') !== window.location.href) { 
-      localStorage.setItem('previousURL', window.location.href);
+  // Get the current and previous URL from localStorage
+  const currentURL = window.location.href;
+  const lastVisitedURL = localStorage.getItem('currentURL');
+
+  // Only update previousURL if the current URL is different from the last visited URL
+  if (lastVisitedURL && lastVisitedURL !== currentURL) {
+      localStorage.setItem('previousURL', lastVisitedURL);
   }
+
+  // Update currentURL to the current URL
+  localStorage.setItem('currentURL', currentURL);
 </script>

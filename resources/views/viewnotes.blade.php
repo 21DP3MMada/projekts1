@@ -139,6 +139,12 @@
     margin-left: 20px;
   }
 
+  @media (max-width: 769px) {
+    #dropdown-btn {
+      margin-left: 10px;
+    }
+  }
+
 .note-header { cursor: pointer; } 
 
 .last-updated em { 
@@ -152,6 +158,10 @@
   width: 20px;
   position: absolute;
   top: 15;
+}
+
+.note-btn {
+  width: 40%;
 }
 
 .goto-note-btn {

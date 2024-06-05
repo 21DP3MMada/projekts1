@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/', [HomeController::class, 'carousel']); 
+Route::get('/', [HomeController::class, 'carousel']);
 
 
 Route::get('/csstest', function () {
@@ -29,16 +29,15 @@ Route::get('/testings', [HomeController::class, 'uploadpage'])->middleware(['aut
 
 //See Books
 Route::get('/bookpage', [HomeController::class, 'bookpage'])
-     ->name('bookpage')
-     ->middleware(['auth']); 
+    ->name('bookpage')
+    ->middleware(['auth']);
 
 Route::get('/get-genres', function () {
-        // Fetch unique genres from your database (replace with your actual logic)
-        $genres = DB::table('products')->distinct()->pluck('category');
-        return response()->json($genres);
-    });
+    $genres = DB::table('products')->distinct()->pluck('category');
+    return response()->json($genres);
+});
 
-Route::get('/assets/{filename}', function($filename) {
+Route::get('/assets/{filename}', function ($filename) {
     $path = public_path('assets/' . $filename);
     if (!File::exists($path)) {
         abort(404);
