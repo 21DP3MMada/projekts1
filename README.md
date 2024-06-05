@@ -1,5 +1,7 @@
 projekts
 
+#Kā palaist programmu
+
 `composer install`
 
 `npm install`
@@ -13,3 +15,5 @@ nomaini ".env.example" uz ".env" un failaa no `DB_DATABASE=laravel` uz `DB_DATAB
 `php artisan migrate`
 
 `php artisan serve`
+
+vajadzeetu saiet
