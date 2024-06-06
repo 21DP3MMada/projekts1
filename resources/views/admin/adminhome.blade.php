@@ -32,11 +32,12 @@
 
         <div class="text-container">
             <h1 style="color: white; text-transform:uppercase; font-family: sans-serif; font-weight: 800;">Dashbaord</h1>
+            <p>test</p>
         </div>
 
         <div class="item-container">
 
-            <p>test</p>
+            
 
             
             <a class="btn-dashboard" href="{{'/uploadpage'}}"><i id="dashboardIcon" class='bx bx-cog' ></i> Manage Books</a>
