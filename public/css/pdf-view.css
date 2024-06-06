@@ -1,11 +1,22 @@
 .container {
   display: flex;
-  padding: 10px 50px;
-  width: 100%;
+  padding: 10px;
+  max-width: 1350px;
+  margin: 0 auto;
   @media (max-width: 769px) {
     padding: 0 10px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+  }
+}
+
+.error-div {
+  display: flex;
+  max-width: 1350px;
+  margin: 0 auto;
+  @media (max-width: 769px) {
+    padding: 0 10px;
+    flex-wrap: wrap;
   }
 }
 
@@ -44,7 +55,7 @@
 .toolbar {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px; /* Optional spacing */
+  margin-bottom: 10px; 
 }
 
 .toolbar button {
@@ -118,7 +129,9 @@ button {
 }
 
 .container-under-pdf-view {
-  padding: 10px 50px;
+  padding: 10px;
+  max-width: 1350px;
+  margin: 0 auto;
   position: relative;
   @media (max-width: 769px) {
     padding: 0 10px;
@@ -148,6 +161,11 @@ button {
   font-family: sans-serif;
 }
 
+.favorite-form {
+  display: inline-block;
+  margin-left: auto;
+}
+
 .metadata button {
   display: inline-block;
   border: none;
@@ -162,6 +180,11 @@ button {
   height: 38px;
   font-size: 12px;
   margin-left: auto;
+  cursor: pointer;
+}
+
+.metadata button:hover {
+  background-color: rgb(56, 56, 56);
 }
 
 .reviews-div {

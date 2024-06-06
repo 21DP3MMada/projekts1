@@ -60,6 +60,7 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 
 // File Routes
 Route::get('/view/{id}', [HomeController::class, 'view'])->name('view')->middleware(['auth']);
+
 Route::get('/download/{file}', [HomeController::class, 'download'])->name('download');
 Route::delete('/delete/{id}', [HomeController::class, 'destroy'])->name('delete');
 Route::get('/redirect-back', [HomeController::class, 'redirectAfterBack'])->name('redirect.back');

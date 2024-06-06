@@ -1,6 +1,6 @@
 projekts
 
-#Kā palaist programmu
+Kā palaist programmu
 
 `composer install`
 

@@ -30,8 +30,6 @@ class FavoritesController extends Controller
             return redirect()->back()->with('error', 'Book is already added to favorites!');
         }
 
-        // If it doesn't exist, proceed with the original logic:
-
         $favorite = new Favorite();
         $favorite->user_id = $user->id;
         $favorite->product_id = $id;

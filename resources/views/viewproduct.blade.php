@@ -55,7 +55,7 @@
   }
 } */
 
-
+/*
 #pdfContainer {
     position: relative;
     width: 100%;
@@ -63,6 +63,28 @@
     padding-bottom: 900px; 
     overflow: hidden;
 }
+*/
+
+
+
+
+#pdf-container {
+    position: relative;
+    height: 80vh;
+    overflow-y: scroll;
+    width: 100%;
+    max-width: 798px;
+    border: 1px solid #ccc;
+    margin: auto;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+/*prieks iframe */
 
 #pdfFrame {
     position: absolute;
@@ -73,6 +95,46 @@
 }
 
 
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; 
+}
+
+
+#pdf-toolbar {
+  display: flex;
+  padding: 10px;
+  max-width: 1350px;
+  margin: 0 auto;
+  @media (max-width: 769px) {
+    padding: 0 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+}
+
+#pdf-toolbar button {
+  margin: 0 5px;
+}
+
+
+#pdf-canvas {
+  width: 40%;
+  height: min-content;
+  border: 1px solid black;
+  @media (max-width: 769px) {
+    width: 100%;
+  }
+}
+
+span {
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+
   </style>
 
 </head>
@@ -80,11 +142,58 @@
 <body>
   @include('navbar')
 
+
+
+
+  <div class="error-div">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+    </div>
+
+
+
+
+    <div id="pdf-toolbar">
+      <button id="prev-page">Previous</button>
+      <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+      <button id="next-page">Next</button>
+      <button id="zoom-in">Zoom In</button>
+      <button id="zoom-out">Zoom Out</button>
+  </div>
+
   <div class="container">
-     <!-- <div id="pdfViewer" class="pdf-viewer"></div>-->
+    
+
+     <!-- <div id="pdfViewer" class="pdf-viewer"></div>
+
      <div id="pdfContainer">
       <iframe id="pdfFrame" src="/assets/{{ $data->file }}#toolbar=0" width="60%" height="750px"></iframe>    
-    </div>
+    </div>-->
+
+
+
+    <canvas id="pdf-canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+    <script src="{{ asset('js/pdfViewer.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pdfUrl = "/assets/{{ $data->file }}"; // Ensure this path is correct
+            initPDFViewer(pdfUrl);
+        });
+    </script>
+
+
+
+
 
 
       <button id="toggle-button" class="fab">
@@ -105,7 +214,16 @@
 
     <div class="metadata">
       <h2>{{$data->title}} by {{$data->author}}</h2>
-      <button><i class='bx bx-star'></i> FAVORITE</button>
+      <form class="favorite-form" action="{{ $product->isFavoritedBy(auth()->user()) ? route('favorites.delete', $product->id) : route('favorites.add', $product->id) }}" method="POST">
+        @csrf
+        @if($product->isFavoritedBy(auth()->user()))
+            @method('DELETE') 
+        @endif
+        <button class="favorite-btn" type="submit">
+            <i class='bx bx-star @if($product->isFavoritedBy(auth()->user())) bx bxs-star @endif'></i> FAVORITE
+        </button>
+    </form>
+    
     </div>
 
     <div class="under-pdf">
@@ -171,6 +289,26 @@
     </div>
 
   </section>
+
+  <script>
+    function fadeOutAndRemove(element) {
+        element.classList.add('fade-out'); 
+        setTimeout(function() {
+            element.remove();
+        }, 1500); 
+    }
+
+    window.addEventListener('load', function() {
+        var alerts = document.querySelectorAll('.alert'); 
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                fadeOutAndRemove(alert);
+            }, 1500); 
+        });
+    });
+</script>
+
+
 
 
   <!-- SORT REVIEWS -->
@@ -239,7 +377,7 @@
   });
   </script>
 
-<!-- PDF SCRIPT -->
+<!-- PDF SCRIPT 
 <script type="module">
   import { getDocument, GlobalWorkerOptions } from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
 
@@ -274,7 +412,7 @@
   loadPdf().catch(error => {
       console.error("Error loading PDF:", error); // Add error handling
   });
-</script>
+</script>-->
 
 
 <!-- NOTE SCRIPT   -->
