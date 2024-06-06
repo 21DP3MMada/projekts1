@@ -17,7 +17,7 @@ body {
 .navbar {
   display: flex;
   height: 80px;
-  padding: 10px;
+  padding: 0 10px;
   max-width: 1350px;
   margin: 0 auto;
   @media (max-width: 769px) {
@@ -143,12 +143,10 @@ body {
   background-color: #1c1a1a;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 0 10px;
   max-width: 1350px;
   margin: 0 auto;
   height:min-content;
-  padding-bottom: 30px;
-
   @media (max-width: 769px) {
     padding: 0 10px;
   }

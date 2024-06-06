@@ -27,8 +27,9 @@
 }
 
 #toggle-button {
-            display: none;
-        }
+  display: none;
+}
+
 @media (max-width: 768px) {
   #toggle-button {
       display: block;
@@ -47,54 +48,6 @@
   }
 }
 
-/*
-@media (max-width: 768px) { 
-  iframe {
-    height: 400px; 
-    width: 100%;
-  }
-} */
-
-/*
-#pdfContainer {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 900px; 
-    overflow: hidden;
-}
-*/
-
-
-
-
-#pdf-container {
-    position: relative;
-    height: 80vh;
-    overflow-y: scroll;
-    width: 100%;
-    max-width: 798px;
-    border: 1px solid #ccc;
-    margin: auto;
-
-    justify-content: center;
-    align-items: center;
-}
-
-
-
-
-/*prieks iframe */
-
-#pdfFrame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
 
 .fade-out {
     opacity: 0;
@@ -104,9 +57,11 @@
 
 #pdf-toolbar {
   display: flex;
-  padding: 10px;
+  padding: 0 8px;
   max-width: 1350px;
   margin: 0 auto;
+  top: 0;   
+  z-index: 1;    
   @media (max-width: 769px) {
     padding: 0 10px;
     flex-wrap: wrap;
@@ -116,22 +71,54 @@
 
 #pdf-toolbar button {
   margin: 0 5px;
+  background-color: rgb(37, 37, 37);
+  color: white;
+  border: none;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  font-weight: 800;
+  margin-left: 20px;
+  font-size: 20px;
+  text-transform: uppercase;
+  transition: all 0.15;
+  cursor: pointer;
 }
 
-
-#pdf-canvas {
-  width: 40%;
-  height: min-content;
-  border: 1px solid black;
-  @media (max-width: 769px) {
+#pdf-container {
+  background-color: rgb(37, 37, 37);
+  border-radius: 10px;
     width: 100%;
-  }
+    height: 80vh;
+    overflow-y: scroll;
+    position: relative;
+}
+
+#pdf-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#pdf-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#pdf-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 2px;
+}
+
+#pdf-container canvas {
+    display: block;
+    margin: 5px auto;
+    max-width: 100%;
+    height: auto;
 }
 
 span {
-  color: white;
-  text-transform: uppercase;
-  font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
 
@@ -141,8 +128,6 @@ span {
 
 <body>
   @include('navbar')
-
-
 
 
   <div class="error-div">
@@ -163,11 +148,9 @@ span {
 
 
     <div id="pdf-toolbar">
-      <button id="prev-page">Previous</button>
-      <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
-      <button id="next-page">Next</button>
-      <button id="zoom-in">Zoom In</button>
-      <button id="zoom-out">Zoom Out</button>
+      <span>Page: <span id="page-num">1</span> / <span id="page-count"></span></span>
+      <button id="zoom-in"><i class='bx bx-plus'></i></button>
+      <button id="zoom-out"><i class='bx bx-minus' ></i></button>
   </div>
 
   <div class="container">
@@ -177,11 +160,12 @@ span {
 
      <div id="pdfContainer">
       <iframe id="pdfFrame" src="/assets/{{ $data->file }}#toolbar=0" width="60%" height="750px"></iframe>    
-    </div>-->
+    </div> -->
 
 
 
-    <canvas id="pdf-canvas"></canvas>
+    <div id="pdf-container"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
     <script src="{{ asset('js/pdfViewer.js') }}"></script>
     <script>
@@ -190,9 +174,6 @@ span {
             initPDFViewer(pdfUrl);
         });
     </script>
-
-
-
 
 
 
@@ -376,44 +357,6 @@ span {
       isAtNotesSection = !isAtNotesSection;
   });
   </script>
-
-<!-- PDF SCRIPT 
-<script type="module">
-  import { getDocument, GlobalWorkerOptions } from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
-
-  // (Optional) Configure worker path if needed
-  GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs'; 
-
-  const pdfViewer = document.getElementById('pdfViewer');
-
-  async function loadPdf() {
-      const pdfPath = "/assets/{{ $data->file }}";
-      const loadingTask = getDocument(pdfPath); // Use getDocument instead of PDFJS.getDocument
-      const pdf = await loadingTask.promise;
-
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          const page = await pdf.getPage(pageNum);
-          const viewport = page.getViewport({ scale: 1.0 });
-
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
-          const renderTask = page.render({
-              canvasContext: context,
-              viewport: viewport
-          });
-          await renderTask.promise;
-          pdfViewer.appendChild(canvas);
-      }
-  }
-  
-  loadPdf().catch(error => {
-      console.error("Error loading PDF:", error); // Add error handling
-  });
-</script>-->
-
 
 <!-- NOTE SCRIPT   -->
   <script>
