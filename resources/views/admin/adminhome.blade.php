@@ -36,6 +36,8 @@
 
         <div class="item-container">
 
+            <p>test</p>
+
             
             <a class="btn-dashboard" href="{{'/uploadpage'}}"><i id="dashboardIcon" class='bx bx-cog' ></i> Manage Books</a>
 
