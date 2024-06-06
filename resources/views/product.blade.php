@@ -230,6 +230,72 @@
   display: block; 
 }
 
+.modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: rgb(28, 26, 26);
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        z-index: 1001;
+    }
+
+    .close-btn {
+        color: #ffffff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal label {
+        display: block;
+        margin: 10px 0 5px;
+        color: white;
+    }
+
+    .modal input[type="text"] {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin: 5px 0 20px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .modal button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        margin: 10px 0;
+        border: none;
+        cursor: pointer;
+    }
+
+    .modal button:hover {
+        background-color: #45a049;
+    }
+
   </style>
 </head>
 
@@ -315,8 +381,8 @@
           <h5 style="margin-bottom: 10px; font-size: 14px;  color: rgb(255, 255, 255);">Category: {{$data->category ?? ''}}</h5>
           <div class="button-container" style="display: flex; justify-content: space-between;">
             <a class="view-btn" href="{{route('view', $data->id)}}">View</a>
-            <a class="download-btn" href="{{route('download', $data->file)}}">Download</a>
-            <a class="download-btn" type="submit"><i class='bx bx-edit-alt'></i></a>
+            <a class="download-btn" href="{{route('download', $data->file)}}"><i class='bx bxs-download' ></i></a>
+            <button class="edit-btn" onclick="openEditModal({{ $data->id }})">EDIT</button>
             <form action="{{ route('delete', $data->id) }}" method="POST">
               @csrf
               @method('DELETE')
@@ -331,10 +397,50 @@
           </form>
           </div>
         @endforeach
+
+
     </div>
+
+        <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+          <span class="close-btn" onclick="closeEditModal()">&times;</span>
+          <form id="editForm" method="POST">
+              @csrf
+              <label for="title">Title:</label>
+              <input type="text" id="title" name="title" required>
+              <label for="author">Author:</label>
+              <input type="text" id="author" name="author" required>
+              <label for="category">Category:</label>
+              <input type="text" id="category" name="category" required>
+              <button type="submit">Save</button>
+          </form>
+      </div>
+  </div>
+
 
 
   </div>
+
+
+  <script>
+    function openEditModal(id) {
+        fetch(`/edit/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('title').value = data.title;
+                document.getElementById('author').value = data.author;
+                document.getElementById('category').value = data.category;
+                document.getElementById('editForm').action = `/update/${id}`;
+                document.getElementById('editModal').style.display = 'block';
+            });
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+</script>
+
 
   <script type="module">
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';

@@ -48,7 +48,10 @@ Route::get('/assets/{filename}', function ($filename) {
 //Book Manage Routes
 Route::post('/uploadbook', [HomeController::class, 'store'])->middleware(['auth', 'admin']);
 Route::get('/uploadpage', [HomeController::class, 'show'])->middleware(['auth', 'admin'])->name('uploadpage');
-
+// Show edit form
+Route::get('/edit/{id}', [HomeController::class, 'edit'])->middleware(['auth', 'admin'])->name('edit');
+// Handle edit request
+Route::post('/update/{id}', [HomeController::class, 'update'])->middleware(['auth', 'admin'])->name('update');
 
 
 //User Manage Routes

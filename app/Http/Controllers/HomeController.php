@@ -106,16 +106,37 @@ class HomeController extends Controller
         return view('allBooks', compact('data'));
     }
 
-    // HomeController.php
 
-public function carousel(Request $request)
-{
-    $data = product::all();
+    public function edit($id)
+    {
+        $data = product::findOrFail($id);
+        return view('edit', compact('data'));
+    }
 
-    return view('welcome', compact('data')); 
-}
+    public function update(Request $request, $id)
+    {
+        $data = product::findOrFail($id);
 
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+        ]);
 
+        $data->title = $request->title;
+        $data->author = $request->author;
+        $data->category = $request->category;
+        $data->save();
+
+        return redirect()->route('uploadpage')->with('success', 'Book details updated successfully!');
+    }
+
+    public function carousel(Request $request)
+    {
+        $data = product::all();
+
+        return view('welcome', compact('data'));
+    }
 
     public function download(Request $request, $file)
     {
