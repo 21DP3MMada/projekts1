@@ -24,8 +24,8 @@ vajadzeetu saiet
 
 Izmantotās tehnoloģijas
 
-PDF.js - pdf failu modificēšana.
-Laravel + Breeze
-MySQL (laragon)
-HMTL, CSS JS
-Visual Studio Code
+PDF.js - pdf failu modificēšana;
+Laravel (PHP) + Breeze;
+MySQL (laragon);
+HMTL, CSS, JS;
+Visual Studio Code;
