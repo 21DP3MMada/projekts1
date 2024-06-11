@@ -23,7 +23,7 @@ class HomeController extends Controller
             if ($usertype == 'user') {
                 return view('dashboard');
             } else if ($usertype == 'admin') {
-                return view('admin.adminhome');
+                return $this->dashboard();
             } else {
                 return redirect()->back();
             }
@@ -52,6 +52,17 @@ class HomeController extends Controller
     {
         return view('product');
     }
+
+
+    public function dashboard()
+    {
+        $bookCount = Product::count();
+        $userCount = User::count();
+
+        return view('admin.adminhome', compact('bookCount', 'userCount'));
+    }
+
+
 
     public function store(Request $request)
     {
@@ -85,16 +96,23 @@ class HomeController extends Controller
 
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $data = product::all();
+        $query = $request->get('query');
 
+        $data = product::query();
+
+        if ($query) {
+            $data->where('title', 'like', '%' . $query . '%');
+        }
+
+        $data = product::all();
         return view('product', compact('data'));
     }
 
     public function bookpage(Request $request)
     {
-        $query = $request->get('query'); // Get search query
+        $query = $request->get('query');
 
         $data = product::query();
 
@@ -157,10 +175,11 @@ class HomeController extends Controller
         $data = Product::find($id);
         if ($data) {
 
+            // Delete the file from the public/assets directory
             $data->reviews()->delete();
-            $filePath = 'assets/' . $data->file;
-            if (Storage::exists($filePath)) {
-                Storage::delete($filePath);
+            $filePath = public_path('assets/' . $data->file);
+            if (file_exists($filePath)) {
+                unlink($filePath);
             }
 
 

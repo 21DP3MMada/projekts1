@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 03, 2024 at 12:16 PM
+-- Generation Time: Jun 11, 2024 at 11:26 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,21 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `projekts2024`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `books`
---
-
-CREATE TABLE `books` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pdf_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -71,10 +56,11 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(26, 2, 3, '2024-04-09 17:06:35', '2024-04-09 17:06:35'),
-(28, 1, 2, '2024-04-09 17:14:01', '2024-04-09 17:14:01'),
 (32, 3, 1, '2024-04-10 13:26:25', '2024-04-10 13:26:25'),
-(35, 2, 1, '2024-04-12 19:13:14', '2024-04-12 19:13:14');
+(35, 2, 1, '2024-04-12 19:13:14', '2024-04-12 19:13:14'),
+(50, 1, 5, '2024-06-06 15:19:50', '2024-06-06 15:19:50'),
+(51, 1, 6, '2024-06-06 17:08:43', '2024-06-06 17:08:43'),
+(53, 1, 7, '2024-06-11 09:25:29', '2024-06-11 09:25:29');
 
 -- --------------------------------------------------------
 
@@ -125,10 +111,9 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`id`, `note_text`, `created_at`, `updated_at`, `user_id`, `product_id`) VALUES
-(5, 'pirmais tests, testeejam atkal.!', '2024-04-12 17:08:20', '2024-04-12 17:08:30', 2, 2),
 (6, 'Visus projektus var sadalīt divās kategorijās: produkts un pasūtījums. Produkta gadījumā izstrādātājs pats \nizvirza sistēmas prasības ar mērķi izstrādāt sistēmu, ko kāds vēlēsies nopirkt. Pasūtījuma gadījumā ir otrādi – \nprasības definē pasūtītājs. hz\n\nksistējošo sistēmu analīze ir būtiska, jo informācijas tehnoloģija tiek plaši pielietota cilvēku ikdienā, gandrīz\nvisās tautsaimniecības jomās tiek kaut kas izmantots no tās, tāpēc, veicot līdzīgu sistēmu analīzi, var iegūt\npieredzi un idejas. Izstrādājot produktu, jārēķinās ar līdzīgiem tirgū esošajiem produktiem, nosakot sava un \nkonkurentu produkta vājās un stiprās puses. Šim mērķim var noderēt SVID analīze (stipro un vājo pušu, iespēju\nun draudu analīze), kas paredz aizpildīt tabulu ar četrām nodaļām (skat. 1. tabulu). SVID tabulā jāatzīmē gan \niekšējie, gan ārējie faktori. Ja sistēma tiek realizēta pēc pasūtījuma, pasūtītājs var minēt līdzīgas sistēmas un \npaskaidrot, kāpēc eksistējošās sistēmas viņu neapmierina. Tirgū esošās sistēmas var izmantot ideju \nģenerēšanai un labu/ sliktu piemēru analīzei.', '2024-04-12 17:09:36', '2024-04-12 19:13:03', 2, 1),
 (7, 'k', '2024-04-12 17:12:19', '2024-04-12 19:08:27', 1, 1),
-(9, 'janis', '2024-05-07 12:45:40', '2024-05-07 12:45:40', 1, 2);
+(16, 'font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;font-family: sans-serif;\nfont-weight: 800;\ntext-transform: uppercase;', '2024-06-11 09:23:08', '2024-06-11 09:23:08', 1, 12);
 
 -- --------------------------------------------------------
 
@@ -179,7 +164,11 @@ INSERT INTO `notifications` (`id`, `user_id`, `message`, `is_read`, `created_at`
 (29, 1, 'tests', 1, '2024-05-20 16:44:56', '2024-05-31 14:11:52'),
 (30, 2, 'tests', 0, '2024-05-20 16:44:56', '2024-05-20 16:44:56'),
 (31, 3, 'tests', 0, '2024-05-20 16:44:56', '2024-05-20 16:44:56'),
-(32, 7, 'tests', 0, '2024-05-20 16:44:56', '2024-05-20 16:44:56');
+(32, 7, 'tests', 0, '2024-05-20 16:44:56', '2024-05-20 16:44:56'),
+(33, 1, 'nigger', 1, '2024-06-06 16:07:52', '2024-06-06 16:08:29'),
+(34, 2, 'nigger', 1, '2024-06-06 16:07:52', '2024-06-10 17:23:27'),
+(35, 3, 'nigger', 0, '2024-06-06 16:07:52', '2024-06-06 16:07:52'),
+(36, 7, 'nigger', 0, '2024-06-06 16:07:52', '2024-06-06 16:07:52');
 
 -- --------------------------------------------------------
 
@@ -234,13 +223,17 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `author`, `category`, `cover_image`, `file`, `created_at`, `updated_at`) VALUES
-(1, 'testings', 'es', 'pirma kateg', NULL, '1591d18339c4d11dee8c7a05c1c4be3b.pdf', '2024-03-27 16:11:35', '2024-03-27 16:11:35'),
-(2, 'Otra Gramata', 'autors', 'tresa kateg', NULL, '0141441449f301daad74bbe5c35a6b15.pdf', '2024-03-27 16:12:38', '2024-03-27 16:12:38'),
-(3, 'Velviena gramata', 'asas', 'otra kateg', NULL, '56d4990ec78795de2e177bbf2ee9a102.pdf', '2024-03-27 16:13:04', '2024-03-27 16:13:04'),
-(4, 'Rich Dad Poor Dad', 'Robert T. Kiyosaki', 'Money/Investments', NULL, 'edffca456cb5ee1807c936a3abab73fc.pdf', '2024-05-07 20:25:39', '2024-05-07 20:25:39'),
+(1, 'testings', 'nezinams1', 'pirma kateg', NULL, '1591d18339c4d11dee8c7a05c1c4be3b.pdf', '2024-03-27 16:11:35', '2024-06-10 16:57:31'),
 (5, '48 Laws of Power', 'Robert Greene', 'Psychology', NULL, '36d8b1f16797c1cc65164769a2f69772.pdf', '2024-05-07 20:26:23', '2024-05-07 20:26:23'),
 (6, 'Deep Work', 'Newport', 'Productivity', NULL, '2d9a157478ebdd9640968a7a885f3929.pdf', '2024-05-07 20:27:12', '2024-05-07 20:27:12'),
-(7, 'Atomic Habits', 'James Clear', 'Psychology', NULL, '729a66f87a5a6ceb910e60038fca86f8.pdf', '2024-05-07 20:28:10', '2024-05-07 20:28:10');
+(7, 'Atomic Habits', 'James Clear', 'Psychology', NULL, '729a66f87a5a6ceb910e60038fca86f8.pdf', '2024-05-07 20:28:10', '2024-05-07 20:28:10'),
+(9, 'Never Split The Difference', 'Chris Voss', 'Sales/Negotiation', NULL, '3c4bb0d07d82869f893fb25eafeef807.pdf', '2024-06-10 17:18:15', '2024-06-10 17:18:15'),
+(12, 'Mind Mangement not Time Management', 'David Kadavy', 'Productivity', NULL, '8542c08616de1298209a959e40c162e0.pdf', '2024-06-11 09:11:19', '2024-06-11 09:11:19'),
+(13, 'Goals', 'Brian Tracy', 'Productivity', NULL, '1dfe2ee6cede66529ce8a3d0157d678f.pdf', '2024-06-11 09:16:53', '2024-06-11 09:16:53'),
+(14, '$100M Offers', 'Alex Hormozi', 'Business/Career', NULL, '6e8bc9a3f2dfa3940625c2504771a2e5.pdf', '2024-06-11 09:18:07', '2024-06-11 09:18:07'),
+(15, 'Unfair Advantage', 'Ash Ali & Hasan Kubba', 'Business/Career', NULL, '01d1ae7dd8c22721d25b3d8e3927de44.pdf', '2024-06-11 09:19:19', '2024-06-11 09:19:19'),
+(16, 'Mans Search For Himself', 'Rollo May', 'Psychology', NULL, '7601b38bcf3d3afde7b2235815cb1fc8.pdf', '2024-06-11 09:20:06', '2024-06-11 09:20:06'),
+(17, 'Rich Dad Poor Dad', 'Robert T. Kiyosaki', 'Money/Investments', NULL, 'edffca456cb5ee1807c936a3abab73fc.pdf', '2024-06-11 09:21:10', '2024-06-11 09:21:10');
 
 -- --------------------------------------------------------
 
@@ -263,9 +256,12 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `review_score`, `review_text`, `created_at`, `updated_at`, `user_id`, `product_id`) VALUES
-(1, 3, 'fsdfsfsdf', '2024-04-30 19:42:21', '2024-04-30 19:42:21', 1, 3),
 (2, 1, 'nepatiik', '2024-04-30 19:42:44', '2024-04-30 19:42:44', 1, 1),
-(3, 5, 'zajebal', '2024-05-27 10:05:05', '2024-05-27 10:05:05', 1, 7);
+(5, 4, '#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}#pdfContainer {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 0;\r\n    padding-bottom: 60%; \r\n    overflow: hidden;\r\n}\r\n\r\n#pdfFrame {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n}', '2024-06-03 17:44:50', '2024-06-03 17:44:50', 2, 5),
+(7, 4, 'TESTTTTT', '2024-06-06 17:08:52', '2024-06-06 17:08:52', 1, 6),
+(8, 5, 'qqqqqqq', '2024-06-06 17:19:54', '2024-06-06 17:19:54', 1, 6),
+(12, 4, 'asdasdasd', '2024-06-10 17:28:35', '2024-06-10 17:28:35', 1, 9),
+(13, 4, 'display: flex;\r\n      bottom: 0;\r\n      left: 0;\r\n      margin-bottom: 10px;      display: flex;\r\n      bottom: 0;\r\n      left: 0;\r\n      margin-bottom: 10px;      display: flex;\r\n      bottom: 0;\r\n      left: 0;\r\n      margin-bottom: 10px;      display: flex;\r\n      bottom: 0;\r\n      left: 0;\r\n      margin-bottom: 10px;      display: flex;\r\n      bottom: 0;\r\n      left: 0;\r\n      margin-bottom: 10px;', '2024-06-11 08:55:30', '2024-06-11 08:55:30', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -298,12 +294,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `books`
---
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -381,12 +371,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `books`
---
-ALTER TABLE `books`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -396,7 +380,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -408,13 +392,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -426,13 +410,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -28,21 +28,17 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        // Authorization
-        if (Auth::id() !== $user->id) { // Check if current user is editing themselves
+        if (Auth::id() !== $user->id) { 
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        // ... your validation ... 
-
         $user->update($request->only(['name', 'email']));
 
-        return response()->json($user); // Return updated user data
+        return response()->json($user); 
     }
 
     public function destroy(User $user)
     {
-        // Authorization (Ensure the current user is an admin)
         if (!auth()->user()->isAdmin()) {
             return redirect()->back()->with('error', 'Unauthorized action.');
         }

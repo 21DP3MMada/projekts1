@@ -231,7 +231,7 @@ button {
 }
 
 .star {
-  font-size: 32px;
+  font-size: 24px;
   color: #ccc; 
   cursor: pointer;
   transition: color 0.3s;
@@ -336,6 +336,7 @@ flex: 0 0 auto;
   background-color: #ff4d4d; /* Red background */
   color: white;
   border: none;
+  height: 40px;
   padding: 5px 10px;
   margin-top: 10px;
   cursor: pointer;

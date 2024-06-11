@@ -263,7 +263,7 @@
                 $(this).next('.note-content').slideToggle();
             });
 
-            function updateTimeDisplays() {
+function updateTimeDisplays() {
     $('.last-updated').each(function() {
         const timestamp = $(this).data('timestamp') * 1000;
         const timeAgoText = moment(timestamp).fromNow(); 

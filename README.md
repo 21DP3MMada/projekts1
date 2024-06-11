@@ -19,3 +19,10 @@ nomaini ".env.example" uz ".env" un failaa no `DB_DATABASE=laravel` uz `DB_DATAB
 `php artisan serve`
 
 vajadzeetu saiet
+
+Izmantotās tehnoloģijas
+
+PDF.js - pdf failu modificēšana;
+Laravel (PHP) + Breeze;
+MySQL (laragon);
+HMTL, CSS, JS;

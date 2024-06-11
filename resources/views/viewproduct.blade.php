@@ -9,6 +9,7 @@
   <link type="text/css"  rel="stylesheet" href="{{ asset('css/pdf-view.css') }}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="{{ asset('pdfjs-express/lib/ui/style.css') }}"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   
 
   <style>
@@ -121,6 +122,10 @@ span {
     font-weight: 800;
 }
 
+.last-updated em { 
+    color: gray;   
+    font-style: italic; 
+}
 
   </style>
 
@@ -221,7 +226,7 @@ span {
                     <div class="star-rating">
                         @for ($i = 5; $i >= 1; $i--) 
                             <input style="display: none;" type="radio" id="rating-{{ $i }}" name="review_score" value="{{ $i }}" required>
-                            <label for="rating-{{ $i }}" class="star">&#9734;</label>
+                            <label for="rating-{{ $i }}" class="star" style="font-size: 32px;">&#9734;</label>
                         @endfor
                     </div>
                 </div>
@@ -250,7 +255,10 @@ span {
                         <span class="star">&#9734;</span> 
                     @endfor
                 </div>
-                <p>{{ $review->review_text }}</p>
+                <p style="margin-bottom: 10px;">{{ $review->review_text }}</p>
+                <span class="last-updated" data-timestamp="{{ $review->updated_at->timestamp }}">
+                  {{-- dynamic text  --}}
+              </span>
                 @if (auth()->check() && auth()->id() === $review->user_id)
                     <form method="POST" action="{{ route('products.reviews.destroy', [$product->id, $review->id]) }}">
                         @csrf
@@ -272,6 +280,21 @@ span {
   </section>
 
   <script>
+    function updateTimeDisplays() {
+    $('.last-updated').each(function() {
+        const timestamp = $(this).data('timestamp') * 1000;
+        const timeAgoText = moment(timestamp).fromNow(); 
+        $(this).html('<em>' + timeAgoText + '</em>');
+    });
+}
+
+      updateTimeDisplays();
+
+      setInterval(updateTimeDisplays, 60000); 
+  </script>
+
+  <script>
+    //NOTIFICATION FADE OUT SCRIPT
     function fadeOutAndRemove(element) {
         element.classList.add('fade-out'); 
         setTimeout(function() {

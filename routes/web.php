@@ -14,6 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// stats
+// Redirect to the 'dashboard' method instead of 'index'
+Route::get('/home', [HomeController::class, 'dashboard'])->middleware('auth')->name('home');
+
+
+
 
 Route::get('/', [HomeController::class, 'carousel']);
 

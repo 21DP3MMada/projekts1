@@ -21,7 +21,6 @@ class FavoritesController extends Controller
     {
         $user = Auth::user();
 
-        // Check if the favorite already exists
         $exists = Favorite::where('user_id', $user->id)
             ->where('product_id', $id)
             ->exists();
